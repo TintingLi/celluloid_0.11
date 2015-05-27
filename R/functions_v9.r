@@ -388,12 +388,19 @@ if(any( forced > 0 ) ){
 #
 
 # v contains S and "t without its last element"
-peakProximity <-function( v, selectedPeaks , wd, verbose=T, npeaks =NULL, xonly , notSeenPenalty , ... ){
+peakProximity <-function( v, selectedPeaks , wd, verbose=T, npeaks =NULL, Sn=NULL, xonly , notSeenPenalty , ... ){
 
-  S<-v[1] 
-  t<- tail(v, -1 ) 
-  t<- c( t, 1-sum(t) )
-
+  if( is.null(Sn) ){
+   S<-v[1] 
+   t<- tail(v, -1 ) 
+   t<- c( t, 1-sum(t) )
+  } else {
+   t<-v
+   if( t[1]<0.001 ){ t[1]<-0.001 }
+   t<-c( t, 1-sum(t) )
+   S<-Sn/t[1]
+  }
+  
   totDist <- eoDist( selectedPeaks, S=S, t=t, wd=wd ,xonly=xonly, notSeenPenalty=notSeenPenalty, ... ) 
 
   if( is.null( npeaks ) ){ npeaks<- nrow(selectedPeaks)}
@@ -474,9 +481,11 @@ findEquiPeaks<-function( selectedPoints , minpoints=4  ){
 
 
 # generates random starting values, for use with optim()
-startOptim <-function( Sfrom, Sto , nsubcl, forced=F  ){ 
+startOptim <-function( Sfrom, Sto , nsubcl, forced=F , Sn=NULL ){ 
       thisMn<<-99999; 
-      S<-runif( 1,Sfrom, Sto );
+      if( !is.null( Sfrom ) ){
+        S<-runif( 1,Sfrom, Sto );
+      } 
       n<-runif( 1,0,1); 
       t<-rep(NA,nsubcl )       
       t[1]<-runif( 1,0,1 )
@@ -487,7 +496,11 @@ startOptim <-function( Sfrom, Sto , nsubcl, forced=F  ){
       if( forced ){ t<-sample(t) }
       v<-c(n,t); 
       v<-v/sum(v)
-      return( c(S, v[1:(nsubcl)] ))
+      if( is.null(Sn) ){
+        return( c(S, v[1:(nsubcl)] ))
+      } else {
+        return( v[1:nsubcl] )
+      }
  }
 
 ###########

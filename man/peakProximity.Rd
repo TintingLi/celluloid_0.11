@@ -8,7 +8,7 @@ Objective function
 This is the objective function to be minimized. It is not meant to be called directly. 
 }
 \usage{
-peakProximity(v, selectedPeaks, wd, verbose = T, npeaks=NULL , xonly, notSeenPenalty, ...)
+peakProximity(v, selectedPeaks, wd, verbose = T, npeaks=NULL , Sn=NULL, xonly, notSeenPenalty, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +26,7 @@ Shut up or not.
   \item{npeaks}{
 If selectedPeaks is a subset of the original data frame created by selectPeaks(), then npeaks specifies the original number of peaks (if usesubset is TRUE in coverParamSpace)
 }
+\item{Sn}{{Fixed value of S*n where n is the proportion of normal cells.}
 \item{xonly}{Distance to peak to be calculated on the x-axis only}
 \item{notSeenPenalty}{IGNORE, dropped from development}
 \item{\dots}{

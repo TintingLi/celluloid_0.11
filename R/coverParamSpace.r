@@ -7,7 +7,7 @@
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
 coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , control=NULL , 
-                             Sfrom=NULL, Sto=NULL, 
+                             Sfrom=NULL, Sto=NULL, Sn=NULL, 
                              maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
                              nrep=NULL  , usesubsets=NULL , xonly=FALSE, 
                              modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
@@ -146,10 +146,19 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
         stop("Error: must specify control. See ?GenSA.") 
         control=list( maxit=500 ) 
       }
-      op <- GenSA( par=NULL ,fn=peakProximity,lower=c( Sfrom , lowerF )  ,   
+      if( is.null( Sn ) ){
+        op <- GenSA( par=NULL ,fn=peakProximity,lower=c( Sfrom , lowerF )  ,   
                    upper=c( Sto, upperF ),  control=control , 
                    selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
                    wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
+      } else {
+        op <- GenSA( par=NULL ,fn=peakProximity,lower=c( lowerF )  ,   
+                     upper=c( upperF ),  control=control , Sn=Sn, 
+                     selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
+                     wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
+      }
+        
+        
       outputlist[[currentrep]] <- op
       outputlist[[currentrep]]$start<-NULL
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
@@ -164,12 +173,14 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
       if( is.null(control) ){ 
         stop("Error: must specify control. See ?optim.") 
       }
-      # starting values  
-      start<-startOptim( Sfrom, Sto, nsubcl , forced= ncol( selectedPeaks ) == 3)
-      op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
-                  verbose= T , control=control, npeaks=nrow( selectedPeaks), 
+        # starting values  
+         start<-startOptim( Sfrom, Sto, nsubcl , forced= ncol( selectedPeaks ) == 3, Sn=Sn )
+         
+        op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
+                  verbose= T , control=control, npeaks=nrow( selectedPeaks), Sn=Sn,  
                   notSeenPenalty=notSeenPenalty , wd=wd, xonly=xonly,... ) 
-
+     
+        
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
@@ -206,11 +217,20 @@ if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
       if( is.null(control) ){ 
         stop("Error: must specify control. See ?optim.") 
       }
+      if( is.null(Sn)){
       op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
                   lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
                   method=method,
                   verbose= T , control=control, npeaks=nrow( selectedPeaks) , 
                   wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+      } else {
+        op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
+                    lower=c( lowerF )  ,   upper=c( upperF ),
+                    method=method,
+                    verbose= T , control=control, npeaks=nrow( selectedPeaks) , Sn=Sn,
+                    wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+      }
+        
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")

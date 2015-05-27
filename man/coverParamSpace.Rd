@@ -9,7 +9,7 @@ Function to set up the optimization.
 }
 \usage{
 coverParamSpace( selectedPeaks, verbose=T , addToParamSpace=F , control=NULL , 
-      Sfrom=NULL, Sto=NULL,  maxc=NULL, maxsubcldiff=NULL, optimFct=2, 
+      Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, maxsubcldiff=NULL, optimFct=2, 
       lowerF, upperF, nrep=NULL, usesubsets=NULL , xonly=FALSE,  
       modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
 }
@@ -34,6 +34,7 @@ Lower bound for S.
   \item{Sto}{
 Upper bound for S.
 }
+\item{Sn}{Fixed value of S*n where n is the proportion of normal cells.}
   \item{maxc}{
 Argument passed to prepCN.
 }
