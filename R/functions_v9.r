@@ -557,11 +557,11 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
 
 ###############
 
-getLocalMinsFromParamSpace<-function( pruneS=0.05 , pruneT=0.05 ){
+getLocalMinsFromParamSpace<-function( pruneS=0.05 , pruneT=0.05 ,pruneDist=2 ){
 
   out<-paramSpace[ paramSpace[,1]<1000,] 
   out<-out[ order(out[,1]),]
-  out<-out[ out[,1]<2*min(out[,1]),] 
+  out<-out[ out[,1]<pruneDist*min(out[,1]),] 
   # dS<-as.matrix( dist(out[, 2] ))
   dT<-as.matrix( dist(out[, 3:(ncol(out))] ))
   
