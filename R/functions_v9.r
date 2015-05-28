@@ -555,6 +555,31 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
   return(out[ order(out[,1]), 1:(ncol(out)-1) ] )
 }
 
+###############
+
+getLocalMinsFromParamSpace<-function( pruneS=0.05 , pruneT=0.05 ){
+
+  out<-paramSpace[ paramSpace[,1]<1000,] 
+  out<-out[ order(out[,1]),]
+  out<-out[ out[,1]<2*min(out[,1]),] 
+  # dS<-as.matrix( dist(out[, 2] ))
+  dT<-as.matrix( dist(out[, 3:(ncol(out))] ))
+  
+  i<-1
+  done<-FALSE
+  while( !done ){
+    trim <-c( rep( F,i ) ,  dT[(i+1):(nrow(out)), i]<pruneT    )
+    # rbind in case only one line
+    out<-rbind( out[!trim,] )
+    #dS<-dS[ !trim, !trim]
+    dT<-dT[ !trim, !trim] 
+    i<-i+1
+    if( i >= nrow( out ) ){ done<-TRUE }
+  }
+  
+return( out )
+}
+
 
 
 
