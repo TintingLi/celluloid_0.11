@@ -163,7 +163,9 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
       }
         
-        
+      
+      if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+      
       outputlist[[currentrep]] <- op
       outputlist[[currentrep]]$start<-NULL
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
@@ -185,7 +187,8 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
                   verbose= T , control=control, npeaks=nrow( selectedPeaks), Sn=Sn,  
                   notSeenPenalty=notSeenPenalty , wd=wd, xonly=xonly,... ) 
      
-        
+      if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+      
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
@@ -236,7 +239,8 @@ if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
                     verbose= T , control=control, npeaks=nrow( selectedPeaks) , Sn=Sn,
                     wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
       }
-        
+      if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+      
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")

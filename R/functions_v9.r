@@ -522,6 +522,9 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
     tmpglobal<-allParamSpace
     allParamSpace<<-rbind( tmpglobal , li[[i]]$paramSpace )
   }
+  for( i in 1:(ncol( out )-1 )){
+    out[,i]<- as.numeric( as.character(out[,i]) ) 
+  }
   if( ncol(out)==4 ){
     out<-cbind( out[,1:3], 1- as.numeric(as.character(out[,3])), out[,4] )
     names(out)<-c("value","S", "N", "T1", "subset")
@@ -529,9 +532,6 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
     out<-cbind( out[,1:(ncol(out)-1)], 
                 1- apply( out[,3:(ncol(out)-1) ], 1, function(x){sum(as.numeric(x))} ), out[,ncol(out)] )  
     names(out)<-c("value","S", "N", paste( "T", 1:(ncol(out)-4 ), sep="") , "subset")
-  }
-  for( i in 1:(ncol(out)-1) ){
-    out[,i]<-as.numeric( as.character(out[,i]) )
   }
   if( !is.null(pruneS) ){
     dS<-as.matrix( dist(out[, 2] ))
@@ -542,7 +542,6 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
      }
      out<-out[!rem,]
   }
-
  if( !is.null(ploidy) ){
    rem<-rep( FALSE, nrow(out))
    for( i in 1:nrow(out) ){
