@@ -489,11 +489,13 @@ startOptim <-function( Sfrom, Sto , nsubcl, forced=F , Sn=NULL ){
       n<-runif( 1,0,1); 
       t<-rep(NA,nsubcl )       
       t[1]<-runif( 1,0,1 )
-      for( i in 2:nsubcl ){ 
-        t[i]<-runif( 1,0,t[i-1])
+      if( nsubcl > 1 ){
+       for( i in 2:nsubcl ){ 
+         t[i]<-runif( 1,0,t[i-1])
+       }
       }
       # if we have forced peaks, then parameters should be allowed to vary freely.
-      if( forced ){ t<-sample(t) }
+      if( forced ){ t<-sample(c(t)) }
       v<-c(n,t); 
       v<-v/sum(v)
       if( is.null(Sn) ){
