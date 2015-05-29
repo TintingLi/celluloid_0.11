@@ -120,7 +120,7 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
 
   for( currentrep in 1:nrep ){
  
-    if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1 ){
+    if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1  ){
       # global, holds parameters in each (or best so far?) iterations. Will be a data.frame
       paramSpace <<- c()
     }
@@ -191,6 +191,7 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
       outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
       outputlist[[currentrep]]$maxc<-maxc
       outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
+      outputlist[[currentrep]]$paramSpace<-paramSpace
       
     }
     
