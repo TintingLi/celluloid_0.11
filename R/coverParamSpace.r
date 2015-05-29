@@ -76,8 +76,13 @@ coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , cont
   
   # if( nrow( selectedPeaks )<2 ){ stop("Only 1 selected point found") }
   
-  if( is.null(Sfrom) ){
-    stop("Sfrom, Sto: undefined")
+  if( is.null(Sn) ){
+   if( is.null(Sfrom) | is.null(Sto) ){
+     stop("Sfrom, Sto: undefined")
+   }
+  } else {
+    Sfrom<-NULL
+    Sto<-NULL
   }
   
 
