@@ -9,7 +9,7 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) 
 coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , control=NULL , 
                              Sfrom=NULL, Sto=NULL, Sn=NULL, 
                              maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
-                             nrep=NULL  , usesubsets=NULL , xonly=FALSE, 
+                             nrep=1  , usesubsets=NULL , xonly=FALSE, 
                              modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
  
   if( is.null(method) ){method="L-BFGS-B"}
