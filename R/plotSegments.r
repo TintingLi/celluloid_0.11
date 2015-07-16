@@ -14,7 +14,7 @@ plotSegment <- function( tumourrangedata, segments, ar=NULL, n.rc.seg =NULL , co
 
 
 if( !is.null(file) ){
-   pdf( filename=file, width=width, height=height )
+   pdf( file=file, width=width, height=height )
 }
 
 
