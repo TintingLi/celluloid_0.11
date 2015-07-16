@@ -26,7 +26,7 @@ Shut up or not.
   \item{npeaks}{
 If selectedPeaks is a subset of the original data frame created by selectPeaks(), then npeaks specifies the original number of peaks (if usesubset is TRUE in coverParamSpace)
 }
-\item{Sn}{{Fixed value of S*n where n is the proportion of normal cells.}
+\item{Sn}{Fixed value of S*n where n is the proportion of normal cells.}
 \item{xonly}{Distance to peak to be calculated on the x-axis only}
 \item{notSeenPenalty}{IGNORE, dropped from development}
 \item{\dots}{
