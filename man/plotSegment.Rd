@@ -9,7 +9,7 @@ Plot segments
 }
 \usage{
 plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, maskmap = NULL, 
-            file = "Rplot\%03d.pdf", title = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
+            file = "Rplot\%03d.png", title = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
             width = 2 * 480, height = 11 * 480/4, ylim = c(-0.5, 8), normal = F, tlwd = 5, tlty = 1, 
             tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), annotation=NULL, cex.annotation=1 )
 }
@@ -114,13 +114,13 @@ segments data.frame obtained from a call to annotateSegments
 
 ## The function is currently defined as
 function (tc, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, 
-    maskmap = 0.8, file = "Rplot\%03d.pdf", title = NULL, chr = NULL, 
+    maskmap = 0.8, file = "Rplot\%03d.png", title = NULL, chr = NULL, 
     perpage = 4, layoutmat = NULL, width = 2 * 480, height = 11 * 
         480/4, ylim = c(-0.5, 8), normal = F, tlwd = 5, tlty = 1, 
     tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5)) 
 {
     if (!is.null(file)) 
-        pdf(filename = file, width = width, height = height)
+        png(filename = file, width = width, height = height)
     if (is.null(columns)) {
         columns = c("icopy", "imean")
     }
