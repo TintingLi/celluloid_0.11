@@ -215,9 +215,10 @@ if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
         grid[[co+1]]<-grid[[co+1]][ seq(2,length(grid[[co+1]]),2)  ]
       }
     } else {
+      grid<-list()
       for( co in 1:length( lowerF)  ){
-        grid[[co]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
-        grid[[co]]<-grid[[co]][ seq(2,length(grid[[co+1]]),2)  ]
+        grid[[co]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co]+1 )
+        grid[[co]]<-grid[[co]][ seq(2,length(grid[[co]]),2)  ]
       }
     }
     egrid<-expand.grid( grid )
