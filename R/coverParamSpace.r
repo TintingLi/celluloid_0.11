@@ -210,14 +210,15 @@ if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
     if(is.null(Sn)){
       grid<-list( seq( Sfrom, Sto, len=2*optimFct[1]+1 ) )
       grid[[1]]<-grid[[1]][  seq(2,length(grid[[1]]),2)  ]
+      for( co in 1:length( lowerF)  ){
+        grid[[co+1]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
+        grid[[co+1]]<-grid[[co+1]][ seq(2,length(grid[[co+1]]),2)  ]
+      }
     } else {
-      # just a placeholder; need to blend this in better. optimFct still needs a placeholder for S, but will be set to 1.
-      grid<-list( seq( 0, 1, len=3 ) )
-      grid[[1]]<-grid[[1]][2]
-    }
-    for( co in 1:length( lowerF)  ){
-      grid[[co+1]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
-      grid[[co+1]]<-grid[[co+1]][ seq(2,length(grid[[co+1]]),2)  ]
+      for( co in 1:length( lowerF)  ){
+        grid[[co]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
+        grid[[co]]<-grid[[co]][ seq(2,length(grid[[co+1]]),2)  ]
+      }
     }
     egrid<-expand.grid( grid )
     for( currentrep in 1:nrow(egrid) ){
