@@ -10,11 +10,11 @@ plotSegment <- function( tumourrangedata, segments, ar=NULL, n.rc.seg =NULL , co
                        file="Rplot%03d.png", title=NULL, chr=NULL, perpage=4 , 
                        layoutmat=NULL, width=2*480, height=11*480/4 , 
                        ylim=c(-.5,8 ), normal=F, 
-                       tlwd=5, tlty=1, tcol=NULL, nlwd=3, nlty=3, ncol=gray(.5) , annotation=NULL, cex.annotation=1 ){
+                       tlwd=5, tlty=1, tcol=NULL, nlwd=3, nlty=3, ncol=gray(.5) , annotation=NULL, cex.annotation=1 ,...){
 
 
 if( !is.null(file) ){
-   png( filename=file, width=width, height=height )
+   png( filename=file, width=width, height=height, ... )
 }
 
 

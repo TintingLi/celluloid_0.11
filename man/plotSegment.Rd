@@ -11,7 +11,7 @@ Plot segments
 plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, maskmap = NULL, 
             file = "Rplot\%03d.png", title = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
             width = 2 * 480, height = 11 * 480/4, ylim = c(-0.5, 8), normal = F, tlwd = 5, tlty = 1, 
-            tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), annotation=NULL, cex.annotation=1 )
+            tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), annotation=NULL, cex.annotation=1,... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -82,6 +82,7 @@ segments data.frame obtained from a call to annotateSegments
 }
 \item{cex.annotation}{ cex.axis for the annotation }
 }
+\item{...}{Additional arguments passed to png}
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
