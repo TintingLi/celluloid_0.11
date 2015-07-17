@@ -1,6 +1,6 @@
 # my own gc correction
 
-gcCorrect<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 ){
+gcCorrect<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
    reads <- rangedata$reads
 
@@ -10,7 +10,7 @@ gcCorrect<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 500
    # ignore for correction purposes
   
    rangedata$ignore<-F
-   rangedata$ignore[ is.na(reads) | is.na( rangedata$gc )] <- T 
+   rangedata$ignore[ is.na(reads) | is.na( rangedata$gc )] <- T
    rangedata$ignore[ !is.element( rangedata$space, paste("chr",1:22,sep="") ) ] <- T 
    
    # ignoring read count that are outliers (in the boxplot sense) for correction purposes  
@@ -40,6 +40,17 @@ gcCorrect<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 500
 
    rangedata$copy<-log( rangedata$reads.gc , 2 )
    cat(" done.\nFind the result in $reads.gc\n") 
+ 
+   if( maskmap ){
+     rangedata$ignore <- F 
+     rangedata$ignore[ rangedata$map < mappability ] <- T 
+     rangedata$reads.gc[ rangedata$ignore  ]<- NA
+     rangedata$map[ rangedata$ignore  ]<- NA 
+   } else {
+     # reverting
+     rangedata$ignore <- F 
+   }
+ 
    return( rangedata ) 
 
 }

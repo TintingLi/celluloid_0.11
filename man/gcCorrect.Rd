@@ -8,7 +8,7 @@ Correction for GC content
 This function performs GC correction of read counts in bins, by means of loess. 
 }
 \usage{
-gcCorrect(rangedata, span = 0.3, mappability = 0.9, samplesize = 50000, bprange = 6)
+gcCorrect(rangedata, span = 0.3, mappability = 0.9, samplesize = 50000, bprange = 6, maskmap=T )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,7 @@ That many random bins are selected to derive GC correction
   \item{bprange}{
   Bins with read counts that are outliers are ignored in GC correction, where an outlier is defined as in boxplot(..., range=bprange )
 }
+\item{maskmap}{Sets reads.gc and map columns to NA if bin's mappability is less than the value of mappability argument}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
