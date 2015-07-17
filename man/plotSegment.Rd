@@ -81,8 +81,8 @@ segments data.frame obtained from a call to annotateSegments
 \item{annotation}{Data frame containing: chr position label.  Labels are added to axis(1) of the segment plots
 }
 \item{cex.annotation}{ cex.axis for the annotation }
-}
 \item{...}{Additional arguments passed to png}
+}
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
