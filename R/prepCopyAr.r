@@ -42,11 +42,11 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
  tumourrangedata$smcopy<- m$mean[ order(m$line) ] 
 
  cat(".")
- tumourrangedata$smcopy[ tumourrangedata$ignore ] <- NA 
+ tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA 
  cat(".")
 
  ars <- data.frame( chpo=paste( tumourrangedata$space, start(tumourrangedata), sep="-") ,copy= tumourrangedata$smcopy )
- ars<-ars[ !tumourrangedata$ignore,] 
+ ars<-ars[ !is.na(tumourrangedata$reads.gc) & !tumourrangedata$ignore,] 
  cat(".")
 
  alratio<-ar
