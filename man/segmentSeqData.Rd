@@ -8,7 +8,7 @@ Copy number segmentation
 Wrapped for function copynumber::pcf to do segmentation.
 }
 \usage{
-segmentSeqData(rangedata, gamma = 500, kmin = 100, maskmap = 0.8, maskadj = FALSE)
+segmentSeqData(rangedata, gamma = 500, kmin = 100, maskmap = 0.8, maskadj = FALSE, skipmeanmap=FALSE )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -27,6 +27,7 @@ Ignore bins with mappability less than this
   \item{maskadj}{
 Ignore bins adjacent to bins with mappability less than maskmap. NOT USED.
 }
+\item{skipmeanmap}{Skip call to meanMapInSeg}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

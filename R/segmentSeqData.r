@@ -1,6 +1,6 @@
 #source("meanMapInSeg.r") 
 
-segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=FALSE  ){
+segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=FALSE , skipmeanmap=FALSE ){
 
  binlength<- end(rangedata[1,])-start(rangedata[1,])+1 
 
@@ -31,10 +31,12 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
  tmp.seg$end.pos<-tmp.seg$end.pos + binlength -1
 
  tmp.seg$chrom<-paste("chr", tmp.seg$chrom, sep="")   
-
- tmp.seg.meanmap <-meanMapInSeg(  tmp.seg , rangedata  ) 
-
- return( tmp.seg.meanmap ) 
+  if( !skipmeanmap ){
+    tmp.seg.meanmap <-meanMapInSeg(  tmp.seg , rangedata  ) 
+    return( tmp.seg.meanmap ) 
+  } else {
+    return( tmp.seg )
+  }
 
 }
 
