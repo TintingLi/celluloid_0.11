@@ -1,7 +1,7 @@
 # my own gc correction
 
 
-gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 0.9, samplesize = 500000 , bprange=6 , maskmap=T ){
+gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
   if( sampletype=="tumor"){
     rangedata <- gcCorrect.tumor(  rangedata , span =span , mappability = mappability, samplesize = samplesize , 
@@ -14,7 +14,7 @@ gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 
 }
 
 
-gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 500000 , bprange=6 , maskmap=T ){
+gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
       
   # first pass
   
@@ -107,7 +107,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
 }
 
 
-gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 500000 , bprange=6 , maskmap=T ){
+gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
    reads <- rangedata$reads
 
