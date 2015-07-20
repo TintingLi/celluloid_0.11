@@ -17,7 +17,7 @@ gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 
 gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
       
   # first pass
-  
+  cat( "gcCorrect: first pass\n")
   tc<-gcCorrect( rangedata , maskmap=FALSE, sampletype="normal" )
   
   t.seg <- segmentSeqData( tc , k=50 , maskmap=0, skipmeanmap=T )
@@ -54,6 +54,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
   
   # second pass
   
+  cat( "\ngcCorrect: second pass\n")
   tc$gc[ tc$gc<0 ] <- NA 
 
   # ignore for correction purposes
@@ -72,7 +73,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
   tc$ignore[ tc$map < mappability ] <- T 
   
   # random selection of points to speedup loess, done in intervals to help good sampling
-  cu<-cut( tc$gc[ !tc$ignore ], breaks=quantile( tc$gc[ !tc$ignore ], seq(0,1,.1),na.rm=T ) )
+  cu<-cut( tc$gc, include.lowest=TRUE, breaks=quantile( tc$gc, seq(0,1,.1),na.rm=T ) )
   keep<-c()
   for( i in levels( cu ) ){
     keep<-c( keep, sample( which( cu==i & !tc$ignore ), floor( samplesize/length(levels(cu)) ) ) )
@@ -88,7 +89,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
   tmp <- tmp/mean( tmp, na.rm=T )
   tc$reads.gc<-tmp 
   
-  tc$copy<-log( tc$reads.gc.2 , 2 )
+  tc$copy<-log( tc$reads.gc , 2 )
   
   cat(" done.\nFind the result in $reads.gc\n") 
   
@@ -129,9 +130,14 @@ gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesiz
 
    rangedata$ignore[ rangedata$map < mappability ] <- T 
 
-   keep<- which( !rangedata$ignore )
-   keep<- sample( keep, samplesize )
-
+   
+   # random selection of points to speedup loess, done in intervals to help good sampling
+   cu<-cut( rangedata$gc, include.lowest=TRUE, breaks=quantile( rangedata$gc, seq(0,1,.1),na.rm=T ) )
+   keep<-c()
+   for( i in levels( cu ) ){
+     keep<-c( keep, sample( which( cu==i & !rangedata$ignore ), floor( samplesize/length(levels(cu)) ) ) )
+   }
+   
    cat(" done.\nApplying loess correction...")
 
    lo<- loess(reads[keep] ~ rangedata$gc[keep], span = span )
