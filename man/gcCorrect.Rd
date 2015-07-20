@@ -8,13 +8,14 @@ Correction for GC content
 This function performs GC correction of read counts in bins, by means of loess. 
 }
 \usage{
-gcCorrect(rangedata, span = 0.3, mappability = 0.9, samplesize = 50000, bprange = 6, maskmap=T )
+gcCorrect(rangedata, sampletype="normal",span = 0.3, mappability = 0.9, samplesize = 50000, bprange = 6, maskmap=T )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{rangedata}{
   Object of class IRanges created by HMMcopy::wigsToRangedData
 }
+\item{sampletype}{One of "tumor" or "normal"}
   \item{span}{
 span parameter of loess().
 }
