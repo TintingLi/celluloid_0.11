@@ -67,25 +67,29 @@ selectPeaks<-function( cntr  , copyAr , manual=T, getLocalMax=F, percentMax=.05 
     y<-runif( 1, ray[1], ray[2] )
     op<- optim( c(x,y) , cntr.interpol )
     localMax <- c( op$par, op$value ) 
-    for( i in 2:nrand ){ 
-      #x<-runif( 1, rax[1], rax[2] )
-      #y<-runif( 1, ray[1], ray[2] )
-      x<-sample( cntr$x, 1, prob=apply( cntr$z, 1, sum ) )
-      y<-sample( cntr$y, 1, prob=apply( cntr$z, 2, sum ) )
-      op<- optim( c(x,y) , cntr.interpol )
-      lmx <- c( op$par, op$value ) 
-      di <- as.matrix( dist( rbind( lmx, localMax ) ) )[,1][-1]
-      if( min(di) > 1e-6 ){
-        localMax<-rbind( localMax, lmx )
+    continue<-TRUE
+    while( continue ){
+      for( i in 2:nrand ){ 
+        #x<-runif( 1, rax[1], rax[2] )
+        #y<-runif( 1, ray[1], ray[2] )
+        x<-sample( cntr$x, 1, prob=apply( cntr$z, 1, sum ) )
+        y<-sample( cntr$y, 1, prob=apply( cntr$z, 2, sum ) )
+        op<- optim( c(x,y) , cntr.interpol )
+        lmx <- c( op$par, op$value ) 
+        di <- as.matrix( dist( rbind( lmx, localMax ) ) )[,1][-1]
+        if( min(di) > 1e-6 ){
+          localMax<-rbind( localMax, lmx )
+        }
       }
+      if( sum( localMax[,3] < -q ) > 0 ){
+        localMax<-rbind(localMax[ localMax[,3] < -q , 1:2 ] )
+        selectedPoints<-rbind( selectedPoints,data.frame( x=localMax[,1], y=localMax[,2])  )
+        selectedPoints<-filterSym( selectedPoints , filtersymm  )
+        points( selectedPoints,  col=autocol, pch=autopch, cex=autocex ) 
+        continue<-FALSE
+      }   
     }
-    localMax<-localMax[ localMax[,3] < -q , 1:2 ] 
-    selectedPoints<-rbind( selectedPoints,data.frame( x=localMax[,1], y=localMax[,2])  )
-    selectedPoints<-filterSym( selectedPoints , filtersymm  )
-    points( selectedPoints,  col=autocol, pch=autopch, cex=autocex ) 
-    
   }
-  
   if( manual ){
     # added this to force a finer grid and not be dependent on points in copyAr
     rx<-range( copyAr[,1] )
