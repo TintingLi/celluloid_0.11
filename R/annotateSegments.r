@@ -5,8 +5,10 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
   tmpseg$dist<- NA 
   tmpseg$we<-NA 
   d<-dist( epp$x )
-  xdiff<-min( d[d>0] )/3
+  xdiff<-min( d[d>0] )/2
   tmpseg$xdiff<-xdiff
+  tmpseg$dist <- NA
+  tmpseg$we<-NA 
   
   # if the distance between a segment and a epp is 0, the function returns 1
   # if it is greated than xdiff (the mid point between two integer value, 
@@ -36,7 +38,9 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
     d<-as.matrix( dist(tmp) )
     sel<- which( d[1,-1]==min(d[1,-1] ) )[1]
     tmpseg$dist[s]<- d[1,-1][sel][1]
-    tmpseg$we[s]<-we( d[1,-1][sel][1] )
+    if( nrow( epp )==6 ){
+      tmpseg$we[s]<-we( d[1,-1][sel][1] )
+    }
     m <- epp[sel, ][seq(3, ncol(epp) - 2, 2)]
     p <- epp[sel, ][seq(4, ncol(epp) - 2, 2)]
     lab <- paste(paste(m, p, sep = ""), collapse = "/")
