@@ -17,7 +17,7 @@ segment data.frame obtained from a call to scaleSegments.
   \item{epp}{
 data.frame returned from a call to ePeakPos. 
 }
-\item(weights){Function to assign weights given to segments based on distance to nearest epp points. One of linear or quadratic.}
+\item{weights}{Function to assign weights given to segments based on distance to nearest epp points. One of linear or quadratic.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
