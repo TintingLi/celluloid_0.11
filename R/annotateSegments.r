@@ -38,7 +38,7 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
     d<-as.matrix( dist(tmp) )
     sel<- which( d[1,-1]==min(d[1,-1] ) )[1]
     tmpseg$dist[s]<- d[1,-1][sel][1]
-    if( nrow( epp )==6 ){
+    if( ncol( epp )==6 ){
       tmpseg$we[s]<-we( d[1,-1][sel][1] )
     }
     m <- epp[sel, ][seq(3, ncol(epp) - 2, 2)]
