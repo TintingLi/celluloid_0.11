@@ -12,7 +12,7 @@ peakProximity.percent <-function( v, segments , verbose=T, Sn=NULL , ... ){
     S<-Sn/t[1]
   }
   
-  totDist <- eoDist( segments , S=S, t=t , ... ) 
+  totDist <- eoDist.percent( segments , S=S, t=t , ... ) 
   
   if( totDist <  thisMn ){
     thisMn <<- totDist 
@@ -31,8 +31,8 @@ peakProximity.percent <-function( v, segments , verbose=T, Sn=NULL , ... ){
     cat(thisMn,"\n")
   }
   
-  if(  (verbose &  totDist<=thisMn & totDist<1)  ){     
-    cat(paste( paste("totDist=",totDist, sep="" ) , paste("S=",S, sep=""), 
+  if(  (verbose &  totDist<=thisMn )  ){     
+    cat(paste( paste("percentMissed=",totDist, sep="" ) , paste("S=",S, sep=""), 
                paste( "t=c(", paste( t, collapse=", "), ")" ), sep="; "),"\n")
   } 
   return( totDist )
@@ -55,24 +55,29 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   # first element of t is the % of normal cells 
   nsubcl <- length(t)-1 
   
-  if( nsubcl > 1 ){ stop("eoDist.percent only implemented for one clone models") }
+  if( nsubcl > 1 & FALSE  ){ stop("eoDist.percent only implemented for one clone models") }
   
   if( abs( sum(t) -1 )>1e-8 ){ stop("parameter vector does not sum to 1 (eoDist.percent)") }
   
   # in case % normal cells is 0 
-  if( t[1]==0 ){ t[1]<-1e-8; t<-t/sum(t) } 
-  
+  if( t[1]==0 ){ t[1]<-1e-4; t<-t/sum(t) } 
+  if( t[1]==1 ){ t[1]<-.9999; t<-t/sum(t) }
   # I am only allowing decreasing frequencies ( t[2]>=t[3]>=... ) 
   # all % must be positive
   if( nsubcl>1 ){
-    if(  any( t<0 | t>1) |( any( t[2:(nsubcl)]< t[3:(nsubcl+1)] )   )  ){ return( 1 ) }
+    if(  all( t>=0 ) & all(t<=1)  & ( any( t[2:(nsubcl)]< t[3:(nsubcl+1)] )   )  ){ return( 1+max( t[3:(nsubcl+1)] ) ) }
   } 
   
-  if( any( t<0 | t>1 )   ){return(1)}
-    
+  if( any( t<=0 ) ){ return( 1 - min(t) ) }
+  if( any( t>=1 ) ){ return( max( t) ) }
+  if( S> max( seg[,"mean"] , na.rm=T ) ){ return( 1+S ) }  
+  
   epp<-ePeakPos( S=S, t=t, cn=cn, ... )
   
-  d<-dist( epp$x )
+  tmp <- apply( epp[, 3:(ncol(epp)-2 )], 1, sum )
+  sel<-tmp==0 | tmp==1 
+  
+  d<-dist( epp$x[sel] )
   xdist <-min( d[d>0] )/2
   
   nseg<-nrow(seg)
@@ -86,9 +91,9 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   mnd<-apply( d, 1, min )
   
   if( quadratic ){
-    mnd<-weigth.quadratic( mnd, xdist=xdist)
+    mnd<-weight.quadratic( mnd, xdist=xdist)
   } else {
-    mnd<-weigth.linear( mnd, xdist=xdist)
+    mnd<-weight.linear( mnd, xdist=xdist)
   }
   
   glength<-sum( seg$size )
@@ -208,9 +213,9 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
       
       outputlist[[currentrep]] <- op
       outputlist[[currentrep]]$start<-NULL
-      outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
-      outputlist[[currentrep]]$maxc<-maxc
+          outputlist[[currentrep]]$maxc<-maxc
       outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
+      outputlist[[currentrep]]$subset<-"ALL"
       outputlist[[currentrep]]$paramSpace<-paramSpace
     }
     
@@ -223,16 +228,17 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
       # starting values  
       start<-startOptim( Sfrom, Sto, nsubcl , forced=FALSE , Sn=Sn )
       # no need to split, as parameter list is defined in startOptim
-      op<- optim( par=start , fn=objectiveFct, segments=segments[subset,]  ,
-                  verbose= T , control=control, npeaks=nrow( segments), Sn=Sn ,... ) 
+      op<- optim( par=start , fn=objectiveFct, segments=segments ,
+                  verbose= T , control=control,  Sn=Sn ,... ) 
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
       
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
-      outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
       outputlist[[currentrep]]$maxc<-maxc
       outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
+      outputlist[[currentrep]]$subset<-"ALL"
+      
       outputlist[[currentrep]]$paramSpace<-paramSpace
       
     }
@@ -244,7 +250,7 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
   # does not need nrep to be defined, the number of rep is determined by number of starting points
   
   if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
-    if( length(optimFct)>1 ){
+    #if( length(optimFct)>1 ){
       if( length(optimFct)==1 ){ optimFct<-rep( optimFct[1], length(upperF)+1) }  
       if(is.null(Sn)){
         grid<-list( seq( Sfrom, Sto, len=2*optimFct[1]+1 ) )
@@ -275,23 +281,24 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
         if( is.null(Sn)){
           op<- optim( par=start , fn=objectiveFct, segments=segments,  
                       lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
-                      method=method, verbose= T , control=control, npeaks=nrow( segments) , ... ) 
+                      method=method, verbose= T , control=control , ... ) 
         } else {
-          op<- optim( par=start , fn=objectiveFct, segments=segments[subset,],  
+          op<- optim( par=start , fn=objectiveFct, segments=segments,  
                       lower=c( lowerF )  ,   upper=c( upperF ),
-                      method=method, verbose= T , control=control, npeaks=nrow( segments) , Sn=Sn,...)
+                      method=method, verbose= T , control=control, Sn=Sn,...)
         }
         if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
         
         outputlist[[currentrep]]<-op
         outputlist[[currentrep]]$start<-start
-        outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
         outputlist[[currentrep]]$maxc<-maxc
         outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
+        outputlist[[currentrep]]$subset<-"ALL"
+        
         outputlist[[currentrep]]$paramSpace<-paramSpace
         outputlist[[currentrep]]$cn<-cn
       }
-    }
+    #}
   }
   
   
