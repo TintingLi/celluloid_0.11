@@ -8,7 +8,7 @@ Search for a fit between observed peaks and expected peaks.
 Function to set up the optimization.
 }
 \usage{
-coverParamSpace( selectedPeaks, verbose=T , addToParamSpace=F , control=NULL , 
+coverParamSpace( selectedPeaks, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=FALSE,
       Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, maxsubcldiff=NULL, optimFct=2, 
       lowerF, upperF, nrep=NULL, usesubsets=NULL , xonly=FALSE,  
       modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
@@ -18,6 +18,7 @@ coverParamSpace( selectedPeaks, verbose=T , addToParamSpace=F , control=NULL ,
   \item{selectedPeaks}{
 data.frame of selected peaks, obtained from calling selectPeaks
 }
+\item{segments}{See percentObj below.}
   \item{verbose}{
 More or less details in the output
 }
@@ -27,7 +28,8 @@ A call to coverParamSpace crates a global dataframe with the name paramSpace. Th
   \item{control}{
 Arguments passed to the optimization function used. 
 }
-
+\item{percentObj}{Objective function to be minimized is the "percentage" of the genome that is not captured by the model. If TRUE,
+the segments arguments must point to a segment data frame, such as t.ar.seg (see Tutorial), that contains columns "mean", "p" and "size"} 
   \item{Sfrom}{
 Lower bound for S. 
 }
