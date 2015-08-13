@@ -30,7 +30,7 @@ estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=1000
       points( subseg$mean, subseg$p,  pch=19 ,  col="white" , cex= cxcut  - .5 )
       points( subseg$mean, 1-subseg$p,  pch=21 ,  col="blue", lwd=3  , cex=cxcut  )
       points( subseg$mean, 1-subseg$p,  pch=19 , col="white" , cex=cxcut -.5 )
-      x <- seq(n, 2, .01 ) 
+      x <- seq(Sn, 2, .01 ) 
       points( x , ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
       points( x , 1- ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
     }
@@ -63,7 +63,7 @@ estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=1000
     
     nnllss<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), lower=list(n=0 ) , algo="port" )
     Sn<-  summary(nnllss)$coefficients[1,1]
-    x <- seq(n, 2, .01 ) 
+    x <- seq(Sn, 2, .01 ) 
     points( x , ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
     points( x , 1- ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
     
