@@ -110,10 +110,9 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
 coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , control=NULL , 
                              Sfrom=NULL, Sto=NULL, Sn=NULL, 
                              maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
-                             nrep=1 , method=NULL, percentObj=TRUE, ...  ){
+                             nrep=1 , method=NULL, ...  ){
   
-  objectiveFct<-peakProximity
-  if( percentObj ){   objectiveFct<-peakProximity.percent }
+  objectiveFct<-peakProximity.percent 
   
   if( is.null(method) ){method="L-BFGS-B"}
   
