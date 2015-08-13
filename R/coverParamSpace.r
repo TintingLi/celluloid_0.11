@@ -6,7 +6,7 @@
 # from help( is.integer )
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
-coverParamSpace<- function(  selectedPeaks, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=T,
+coverParamSpace<- function(  selectedPeaks, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=F,
                              Sfrom=NULL, Sto=NULL, Sn=NULL, 
                              maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
                              nrep=1  , usesubsets=NULL , xonly=FALSE, 
