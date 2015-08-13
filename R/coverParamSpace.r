@@ -6,12 +6,38 @@
 # from help( is.integer )
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
-coverParamSpace<- function(  selectedPeaks, verbose=T , addToParamSpace=F , control=NULL , 
+coverParamSpace<- function(  selectedPeaks, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=T,
                              Sfrom=NULL, Sto=NULL, Sn=NULL, 
                              maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
                              nrep=1  , usesubsets=NULL , xonly=FALSE, 
                              modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
- 
+
+  if( percentObj ){
+    if( is.null( segments ) ){
+      stop("coverParamSpace: segment argument required when percentObj==TRUE")
+    }
+    coverParamSpace.percent(  segments=segments, verbose=verbose , addToParamSpace=addToParamSpace, control=control, 
+                              Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff=maxsubcldiff , optimFct=optimFct , 
+                              lowerF=lowerF, upperF=upperF ,  nrep=nrep , method=method, ...  )
+  } else {
+    coverParamSpace.original( selectedPeaks=selectedPeaks,verbose=verbose , addToParamSpace= addToParamSpace, control=control,
+                              Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff= maxsubcldiff, optimFct=optimFct , 
+                              lowerF=lowerF, upperF=upperF , nrep=nrep  , usesubsets=usesubsets , xonly=xonly, 
+                              modeat=modeat, weight=weight, notSeenPenalty=notSeenPenalty  , method=method, ... )
+  }
+  
+}
+
+
+###########################
+
+coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpace=F , control=NULL ,
+                                 Sfrom=NULL, Sto=NULL, Sn=NULL, 
+                                 maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
+                                 nrep=1  , usesubsets=NULL , xonly=FALSE, 
+                                 modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
+      
+  
   if( is.null(method) ){method="L-BFGS-B"}
 
   totDist<<-Inf
