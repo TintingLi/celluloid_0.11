@@ -31,8 +31,7 @@ That many random bins are selected to derive GC correction
 \item{maskmap}{Sets reads.gc and map columns to NA if bin's mappability is less than the value of mappability argument}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+If sampletype is "tumor", then a first segmentation round is done to adjust the read counts for the segments' height.}
 \value{
 Same object rangedata, with an additional column named reads.gc that contains the (scaled) GC-corrected read counts. More prexcisely the column takes the value rangedata$reads/predict( loess(rangedata$reads~rangedata$gc, ...), rangedata$gc)
 %%  ~Describe the value returned
