@@ -1,12 +1,10 @@
 \name{ARloh}
 \alias{ARloh}
-Expected allelic ratio in a LOH region  
-\title{
-Expected allelic ratio in a LOH region with scaled read count x
+\title{Expected allelic ratio in a LOH region  
 %%  ~~function to do ... ~~
 }
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\description{Expected allelic ratio in a LOH region with scaled read count x
+
 }
 \usage{
 ARloh(x, S, n)
