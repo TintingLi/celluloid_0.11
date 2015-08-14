@@ -1,11 +1,10 @@
 \name{estimateLOHcurve}
 \alias{estimateLOHcurve}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
+\title{Function to estimate LOH curve
 %%  ~~function to do ... ~~
 }
-\description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\description{Function to estimate LOH curve
 }
 \usage{
 estimateLOHcurve(segments, cntr = NULL, plot = F, manual = F, minsize = 1e+07, minmap = 0.9, maxmean = 1.25)
