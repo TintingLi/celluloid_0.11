@@ -12,7 +12,7 @@ This function displays the copy-number profile of the tumour summarized in copyA
 showTumourProfile(copyAr, nx = 200, ny = 50, maxPoints = 50000, 
  selected = NULL, flatten = 1, xlim = c(0, 2), nlev = 50, 
  xaxt = "n", seed = NULL, nopoints = F, hist2d = F, chr = NULL, 
- noise = NULL, col = terrain.colors(50), onlypoints=F )
+ noise = NULL, col = terrain.colors(50), onlypoints=F , plot=T )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -65,6 +65,7 @@ Color palette to use. Passed to contour().
  \item{onlypoints}{
 Only plot pairs of points in copyAr. Do not plot contour plot. 
 }
+\item(plot){Set to FALSE if no plot is required. The function still returns the output of kde2d.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

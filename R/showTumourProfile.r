@@ -5,7 +5,7 @@
 showTumourProfile<-function(copyAr, nx=200, ny=50, maxPoints=50000, selected=NULL, 
                             flatten=1, xlim=c(0,2), nlev=50 , xaxt="n", seed=NULL, 
                             nopoints=F , hist2d=F  , chr=NULL , noise=NULL, 
-                            col=terrain.colors(50) , onlypoints=F  ){
+                            col=terrain.colors(50) , onlypoints=F ,plot=T ){
  
  require(gplots)
  require(MASS) 
