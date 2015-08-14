@@ -1,11 +1,11 @@
+ARloh<-function( x,S, n ){
+  k<-2*(x-S*n)/(S-S*n) 
+  return( n/( 2*n+(1-n)*k ) )
+}
 
 estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=10000000, minmap=0.9, maxmean=1.25 ){
 
-  ARloh<-function( x,S, n ){
-    k<-2*(x-S*n)/(S-S*n) 
-    return( n/( 2*n+(1-n)*k ) )
-  }
-  sel<-segments$size>minsize & !segments$mask & segments$meanmap>minmap  & segments$mean< maxmean & !is.na( segments$p )
+   sel<-segments$size>minsize & !segments$mask & segments$meanmap>minmap  & segments$mean< maxmean & !is.na( segments$p )
   subseg <-segments[sel,]
  
   if( !manual ){ 
