@@ -182,7 +182,7 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
   
   for( currentrep in 1:nrep ){
     
-    if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1  ){
+    if( !exists( "paramSpace"  ) | !addToParamSpace   ){
       # global, holds parameters in each (or best so far?) iterations. Will be a data.frame
       paramSpace <<- c()
     }    
@@ -225,10 +225,22 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
         stop("Error: must specify control. See ?optim.") 
       }
       # starting values  
-      start<-startOptim( Sfrom, Sto, nsubcl , forced=FALSE , Sn=Sn )
+      start<-startOptim( Sfrom, Sto, lowerF=lowerF, upperF=upperF , Sn=Sn )
       # no need to split, as parameter list is defined in startOptim
-      op<- optim( par=start , fn=objectiveFct, segments=segments ,
-                  verbose= T , control=control,  Sn=Sn ,... ) 
+      #op<- optim( par=start , fn=objectiveFct, segments=segments ,
+      #            verbose= T , control=control,  Sn=Sn , method=method, ... ) 
+      cat( "replicate: ",currentrep,"/",nrep, "; start:" ,start,"\n")
+      if( is.null(Sn)){
+        op<- optim( par=start , fn=objectiveFct, segments=segments,  
+                    lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
+                    method=method, verbose= T , control=control , ... ) 
+      } else {
+        op<- optim( par=start , fn=objectiveFct, segments=segments,  
+                    lower=c( lowerF )  ,   upper=c( upperF ),
+                    method=method, verbose= T , control=control, Sn=Sn,...)
+      }
+      
+      
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
       

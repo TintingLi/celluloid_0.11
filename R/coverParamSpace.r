@@ -207,7 +207,7 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
         stop("Error: must specify control. See ?optim.") 
       }
         # starting values  
-         start<-startOptim( Sfrom, Sto, nsubcl , forced= ncol( selectedPeaks ) == 3, Sn=Sn )
+         start<-startOptim( Sfrom, Sto, lowerF=lowerF, upperF=upperF , Sn=Sn )
          
         op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
                   verbose= T , control=control, npeaks=nrow( selectedPeaks), Sn=Sn,  

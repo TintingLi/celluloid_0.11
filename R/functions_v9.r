@@ -481,22 +481,25 @@ findEquiPeaks<-function( selectedPoints , minpoints=4  ){
 
 
 # generates random starting values, for use with optim()
-startOptim <-function( Sfrom, Sto , nsubcl, forced=F , Sn=NULL ){ 
+startOptim <-function( Sfrom, Sto , lowerF, upperF , Sn=NULL ){ 
+      nsubcl <- length( lowerF ) 
       thisMn<<-99999; 
       if( !is.null( Sfrom ) ){
         S<-runif( 1,Sfrom, Sto );
       } 
-      n<-runif( 1,0,1); 
-      t<-rep(NA,nsubcl )       
-      t[1]<-runif( 1,0,1 )
-      if( nsubcl > 1 ){
-       for( i in 2:nsubcl ){ 
-         t[i]<-runif( 1,0,t[i-1])
-       }
+      n<-runif( 1, lowerF[1], upperF[1] );
+      if( nsubcl== 1 ){
+        t<-1-n
+      } else {
+        t<-rep(NA,nsubcl)
+        for( i in 1:(nsubcl-1) ){
+          if( upperF[i+1]-n  < lowerF[i+1] ){stop("startOptim: problem with lowerF boundaries")}
+          t[i]<-runif( 1, lowerF[i+1], upperF[i+1]-n )
+        }
+        t[nsubcl]<- 1-n-sum(t, na.rm=T )
       }
-      # if we have forced peaks, then parameters should be allowed to vary freely.
-      if( forced ){ t<-sample(c(t)) }
-      v<-c(n,t); 
+      
+      v<-c(n,t);
       v<-v/sum(v)
       if( is.null(Sn) ){
         return( c(S, v[1:(nsubcl)] ))
@@ -504,6 +507,7 @@ startOptim <-function( Sfrom, Sto , nsubcl, forced=F , Sn=NULL ){
         return( v[1:nsubcl] )
       }
  }
+
 
 ###########
 
