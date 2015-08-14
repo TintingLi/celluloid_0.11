@@ -65,7 +65,7 @@ Color palette to use. Passed to contour().
  \item{onlypoints}{
 Only plot pairs of points in copyAr. Do not plot contour plot. 
 }
-\item(plot){Set to FALSE if no plot is required. The function still returns the output of kde2d.}
+\item{plot}{Set to FALSE if no plot is required. The function still returns the output of kde2d.}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
