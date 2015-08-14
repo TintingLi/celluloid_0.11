@@ -3,7 +3,7 @@
 
 gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
-  if( sampletype=="tumor"){
+  if( sampletype=="tumor" | sampletype="tumour" ){
     rangedata <- gcCorrect.tumor(  rangedata , span =span , mappability = mappability, samplesize = samplesize , 
                                    bprange=bprange , maskmap=maskmap )
   } else if( sampletype=="normal"){
