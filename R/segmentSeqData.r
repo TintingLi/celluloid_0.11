@@ -6,9 +6,6 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
 
  tmp<-data.frame(chrom=rangedata$space, pos=start(rangedata), rc=rangedata$reads.gc )
 
- sel<-is.element( as.character(tmp$chrom), c(paste("chr",1:22,sep=""),"chrX","chrY" ) )
- tmp<-tmp[sel,]
- 
  tmp$chrom<- factor( as.character(tmp$chrom), levels=c(paste("chr",1:22,sep=""),"chrX","chrY" ) )
  tmp$chrom<-as.numeric( tmp$chrom )
 
