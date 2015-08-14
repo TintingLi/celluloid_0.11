@@ -38,7 +38,10 @@ zlik<-function( pr, z , C ){
  tmpseg<-seg
  tmpseg$p <- NA
 
- for( i in 1:nrow(tmpseg) ){cat("#########",i,"\n")
+ for( i in 1:nrow(tmpseg) ){# cat("#########",i,"\n")
+   if( i%%25==0 | i==1 )
+     cat("estimating ar in segment",i,"of",nrow(tmpseg),"\n")
+   
   chr<-as.character(tmpseg$chrom[i])
   from<-tmpseg$start.pos[i]
   to<-tmpseg$end.pos[i]
@@ -54,15 +57,15 @@ zlik<-function( pr, z , C ){
     x<-x[sel]; n<-n[sel]
     x<-apply( data.frame( x,n-x), 1, min )
     pr<- max( 0.005,min( tmpseg$meanar[i], 1-tmpseg$meanar[i])  )
-    cat(i," ",pr,"\n")
+    #cat(i," ",pr,"\n")
     bestmo <-tryCatch(     stats::optimize( f=zlik, interval=c(0,.5), z=x, C=n ) , error=function(e){})
     if( !is.null(bestmo) ){
-     print((bestmo))
+     #print((bestmo))
      est<-bestmo$minimum
      tmpseg$p[i]<- est 
    }
    }
-    print( tmpseg[i,] ) 
+    #print( tmpseg[i,] ) 
 #if(0){
 #    plot( tmpseg[1:i,c("meanar","p")], xlim=c(0,1), ylim=c(0,1) )
 #    abline(0,1); abline(1,-1)
