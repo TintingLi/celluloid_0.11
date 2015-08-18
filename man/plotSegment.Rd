@@ -9,8 +9,8 @@ Plot segments
 }
 \usage{
 plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, maskmap = NULL, 
-            file = "Rplot\%03d.png", title = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
-            width = 2 * 480, height = 11 * 480/4, ylim = c(-0.5, 8), normal = F, tlwd = 5, tlty = 1, 
+            file = "Rplot\%03d.pdf", title = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
+            width = 8.5, height = 11 , ylim = c(-0.5, 8), normal = F, tlwd = 5, tlty = 1, 
             tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), annotation=NULL, cex.annotation=1,... )
 }
 %- maybe also 'usage' for other objects documented here.
