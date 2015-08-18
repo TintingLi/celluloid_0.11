@@ -8,10 +8,10 @@ Search for a fit between observed peaks and expected peaks.
 Function to set up the optimization.
 }
 \usage{
-coverParamSpace( selectedPeaks, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=FALSE,
-      Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, maxsubcldiff=NULL, optimFct=2, 
-      lowerF, upperF, nrep=NULL, usesubsets=NULL , xonly=FALSE,  
-      modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
+coverParamSpace( selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , 
+      control=NULL , percentObj=FALSE, Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, 
+      maxsubcldiff=NULL, optimFct=2, lowerF, upperF, nrep=NULL, usesubsets=NULL , 
+      xonly=FALSE,modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
