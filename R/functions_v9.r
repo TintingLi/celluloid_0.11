@@ -514,7 +514,7 @@ startOptim <-function( Sfrom, Sto , lowerF, upperF , Sn=NULL ){
 # li is a list that contains output from the optimization function used. 
 # this function extracts parameters from each list components
 # ploidy is a set of bounds for the tumour ploidy 
-getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
+getLocalSolutions <-function(li, max=TRUE, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
 
  allParamSpace<<-c()
  if( DEBUG) {print (li) }
@@ -529,6 +529,13 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
   for( i in 1:(ncol( out )-1 )){
     out[,i]<- as.numeric( as.character(out[,i]) ) 
   }
+ 
+  if( max ){ 
+     out<-out[ order(out[,1], decreasing = T ),] 
+  } else {
+    out<-out[ order(out[,1], decreasing = F),]
+  }
+               
   if( ncol(out)==4 ){
     out<-cbind( out[,1:3], 1- as.numeric(as.character(out[,3])), out[,4] )
     names(out)<-c("value","S", "N", "T1", "subset")
@@ -555,9 +562,10 @@ getLocalMins<-function(li, pruneS=0.05 , pruneT=0.025 , ploidy =NULL ){
    }
    out<-out[!rem,]
  }
+  if( max )
+    return(out[ order(out[,1], decreasing=T ), 1:(ncol(out)-1) ] )
+  else return(out[ order(out[,1]), 1:(ncol(out)-1) ] )
 
-   
-  return(out[ order(out[,1]), 1:(ncol(out)-1) ] )
 }
 
 ###############
