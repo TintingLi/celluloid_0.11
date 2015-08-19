@@ -18,8 +18,10 @@ peakProximity.percent <-function( v, segments , verbose=T, Sn=NULL , ... ){
     thisMn <<- totDist 
   }
   
+  # IN ALL OUTPUT I USE PERCENT CAPTURE, BUT THE CODE 
+  # MINIMIZED 1-PERCENTCAPTURE
   # output 
-  ta<- c( totDist, S , t )  
+  ta<- c( 1-totDist, S , t )  
   if( totDist < 1  ){ 
     tmpglobal<-paramSpace 
     paramSpace <<-rbind( tmpglobal, ta ) 
@@ -32,7 +34,7 @@ peakProximity.percent <-function( v, segments , verbose=T, Sn=NULL , ... ){
   }
   
   if(  (verbose &  totDist<=thisMn )  ){     
-    cat(paste( paste("percentMissed=",totDist, sep="" ) , paste("S=",S, sep=""), 
+    cat(paste( paste("percentCaptured=",1-totDist, sep="" ) , paste("S=",S, sep=""), 
                paste( "t=c(", paste( t, collapse=", "), ")" ), sep="; "),"\n")
   } 
   return( totDist )
