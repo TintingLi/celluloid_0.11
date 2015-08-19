@@ -9,16 +9,16 @@ Function to set up the optimization.
 }
 \usage{
 coverParamSpace( selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , 
-      control=NULL , percentObj=FALSE, Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, 
+      control=NULL ,  Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, 
       maxsubcldiff=NULL, optimFct=2, lowerF, upperF, nrep=NULL, usesubsets=NULL , 
       xonly=FALSE,modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{selectedPeaks}{
-data.frame of selected peaks, obtained from calling selectPeaks
+data.frame of selected peaks, obtained from calling selectPeaks. The peak-based objective function is then used.
 }
-\item{segments}{See percentObj below.}
+\item{segments}{Tumour segment data frame, such as t.ar.seg. Must contain columns "mean","p" and "size". The segment-based objective function is then used.}
   \item{verbose}{
 More or less details in the output
 }
@@ -28,8 +28,6 @@ A call to coverParamSpace crates a global dataframe with the name paramSpace. Th
   \item{control}{
 Arguments passed to the optimization function used. 
 }
-\item{percentObj}{Objective function to be minimized is the "percentage" of the genome that is not captured by the model. If TRUE,
-the segments arguments must point to a segment data frame, such as t.ar.seg (see Tutorial), that contains columns "mean", "p" and "size"} 
   \item{Sfrom}{
 Lower bound for S. 
 }

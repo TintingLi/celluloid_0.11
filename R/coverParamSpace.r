@@ -6,39 +6,48 @@
 # from help( is.integer )
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
-coverParamSpace<- function(  selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , control=NULL , percentObj=F,
+coverParamSpace<- function(  selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , control=NULL ,
                              Sfrom=NULL, Sto=NULL, Sn=NULL, maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
                              nrep=1  , usesubsets=NULL , xonly=FALSE, modeat=NULL, weight=NULL, notSeenPenalty=TRUE, 
                              method=NULL, ...  ){
-
-  if( percentObj ){
-    if( is.null( segments ) ){
-      stop("coverParamSpace: segment argument required when percentObj==TRUE")
+  
+  
+  if( !is.null( segments ) ){
+    if( !is.null( selectedPeaks ) ){
+      stop("coverParamSpace: only one of segments or selectedPeaks can be provided")
     }
     coverParamSpace.percent(  segments=segments, verbose=verbose , addToParamSpace=addToParamSpace, control=control, 
                               Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff=maxsubcldiff , optimFct=optimFct , 
                               lowerF=lowerF, upperF=upperF ,  nrep=nrep , method=method, ...  )
-  } else {
+  } else if( !is.null( selectedPeaks ) ){
+    if( !is.null( segments ) ){
+      stop("coverParamSpace: only one of segments or selectedPeaks can be provided")
+    }
+    
     coverParamSpace.original( selectedPeaks=selectedPeaks,verbose=verbose , addToParamSpace= addToParamSpace, control=control,
                               Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff= maxsubcldiff, optimFct=optimFct , 
                               lowerF=lowerF, upperF=upperF , nrep=nrep  , usesubsets=usesubsets , xonly=xonly, 
                               modeat=modeat, weight=weight, notSeenPenalty=notSeenPenalty  , method=method, ... )
+  } else {
+    stop("coverParamSpace: one of segments or selectedPeaks must be provided")
   }
-  
 }
+
+
+
 
 
 ###########################
 
 coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpace=F , control=NULL ,
-                                 Sfrom=NULL, Sto=NULL, Sn=NULL, 
-                                 maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
-                                 nrep=1  , usesubsets=NULL , xonly=FALSE, 
-                                 modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
-      
+                                       Sfrom=NULL, Sto=NULL, Sn=NULL, 
+                                       maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
+                                       nrep=1  , usesubsets=NULL , xonly=FALSE, 
+                                       modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
+  
   
   if( is.null(method) ){method="L-BFGS-B"}
-
+  
   totDist<<-Inf
   
   if( FALSE ){
@@ -63,12 +72,12 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
   
   # I DECIDED TO IGNORE WEIGHTS
   wd<-rep(1,nrow(selectedPeaks) ) 
-
+  
   # Only useful if selectedPeaks is based on individual segments
   # modeat is either NULL or take integer value. The most frequent (mode) x value will be forced to correspond to an 
   # absolute copy num
   if( !is.null( modeat ) ){
-   
+    
     if( !is.wholenumber( modeat ) | modeat<0  ){stop("Error: modeat should take an integer value")}
     d<- density( selectedPeaks[,1] , weight=weight )
     mo <- d$x[which( d$y==max(d$y) )]
@@ -81,16 +90,16 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
   
   # Force an x value to represent two copies. Closest point in selectedPeak will be forced to correspond to
   # two values. NUKING THIS 
-#   twoat<-NULL
-#     if( !is.null( twoat ) ){
-#       d<- as.matrix( dist( c( twoat ,selectedPeaks[,1] ) ) )[,1]
-#       wh<-which( d[-1]==min(d[-1]) )[1]
-#       selectedPeaks$w<- -1
-#       selectedPeaks$w[wh]<-  as.numeric(paste(rep(2, length(upperF) ), collapse="") )
-#       print(selectedPeaks)
-#     }
-
-
+  #   twoat<-NULL
+  #     if( !is.null( twoat ) ){
+  #       d<- as.matrix( dist( c( twoat ,selectedPeaks[,1] ) ) )[,1]
+  #       wh<-which( d[-1]==min(d[-1]) )[1]
+  #       selectedPeaks$w<- -1
+  #       selectedPeaks$w[wh]<-  as.numeric(paste(rep(2, length(upperF) ), collapse="") )
+  #       print(selectedPeaks)
+  #     }
+  
+  
   rownames( selectedPeaks )<- 1:nrow(selectedPeaks)
   
   # holds the output of optimization functions
@@ -102,26 +111,26 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
   # if( nrow( selectedPeaks )<2 ){ stop("Only 1 selected point found") }
   
   if( is.null(Sn) ){
-   if( is.null(Sfrom) | is.null(Sto) ){
-     stop("Sfrom, Sto: undefined")
-   }
+    if( is.null(Sfrom) | is.null(Sto) ){
+      stop("Sfrom, Sto: undefined")
+    }
   } else {
     Sfrom<-NULL
     Sto<-NULL
   }
   
-
-
+  
+  
   k<-0
   
   if( length(optimFct)==1 &  optimFct[1]==1  & is.null(nrep) ){ stop("nrep parameter missing\n") }
-
+  
   # if null, defining it for the loop
   if( is.null(nrep) ){ nrep=1 }
-
-
+  
+  
   ########################################################################
-
+  
   # preparing the cn data.frame containing the allowed copy number configuration is normal and all subclones. 
   # if maxc is NULL, I am using the existing one
   if( is.null( maxc )){
@@ -137,14 +146,14 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
     # the function greates a global cn, so can be re-used and refered to
     prepCN( maxc , nsubcl, maxsubcldiff )
   }
-
-########################################################################
-
-
-# current minimum distance between expected and observed peaks
-
+  
+  ########################################################################
+  
+  
+  # current minimum distance between expected and observed peaks
+  
   for( currentrep in 1:nrep ){
- 
+    
     if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1  ){
       # global, holds parameters in each (or best so far?) iterations. Will be a data.frame
       paramSpace <<- c()
@@ -178,16 +187,16 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
       }
       if( is.null( Sn ) ){
         op <- GenSA( par=NULL ,fn=peakProximity,lower=c( Sfrom , lowerF )  ,   
-                   upper=c( Sto, upperF ),  control=control , 
-                   selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
-                   wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
+                     upper=c( Sto, upperF ),  control=control , 
+                     selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
+                     wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
       } else {
         op <- GenSA( par=NULL ,fn=peakProximity,lower=c( lowerF )  ,   
                      upper=c( upperF ),  control=control , Sn=Sn, 
                      selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
       }
-        
+      
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
       
@@ -205,13 +214,13 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
       if( is.null(control) ){ 
         stop("Error: must specify control. See ?optim.") 
       }
-        # starting values  
-         start<-startOptim( Sfrom, Sto, lowerF=lowerF, upperF=upperF , Sn=Sn )
-         
-        op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
+      # starting values  
+      start<-startOptim( Sfrom, Sto, lowerF=lowerF, upperF=upperF , Sn=Sn )
+      
+      op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
                   verbose= T , control=control, npeaks=nrow( selectedPeaks), Sn=Sn,  
                   notSeenPenalty=notSeenPenalty , wd=wd, xonly=xonly,... ) 
-     
+      
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
       
       outputlist[[currentrep]]<-op
@@ -224,64 +233,64 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
     }
     
   } # for( currentrep in 1:nrep)
-
+  
   # grid search, grid consist of starting values
   # if optimFct > 2 then take that many grid points for each parameters
   # does not need nrep to be defined, the number of rep is determined by number of starting points
   
-if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
-  if( length(optimFct)>1 ){
-    if( length(optimFct)==1 ){ optimFct<-rep( optimFct[1], length(upperF)+1) }  
-    if(is.null(Sn)){
-      grid<-list( seq( Sfrom, Sto, len=2*optimFct[1]+1 ) )
-      grid[[1]]<-grid[[1]][  seq(2,length(grid[[1]]),2)  ]
-      for( co in 1:length( lowerF)  ){
-        grid[[co+1]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
-        grid[[co+1]]<-grid[[co+1]][ seq(2,length(grid[[co+1]]),2)  ]
-      }
-    } else {
-      grid<-list()
-      for( co in 1:length( lowerF)  ){
-        grid[[co]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co]+1 )
-        grid[[co]]<-grid[[co]][ seq(2,length(grid[[co]]),2)  ]
-      }
-    }
-    egrid<-expand.grid( grid )
-    for( currentrep in 1:nrow(egrid) ){
-      # Overwrites these global par for each grid point.
-
-      # paramSpace<<-c()
-
-      thisMn<<-99999; 
-      start<-as.numeric( egrid[currentrep,] )
-      cat( start ,"\n") 
-      if( is.null(control) ){ 
-        stop("Error: must specify control. See ?optim.") 
-      }
-      if( is.null(Sn)){
-      op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
-                  lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
-                  method=method,
-                  verbose= T , control=control, npeaks=nrow( selectedPeaks) , 
-                  wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+  if( (length(optimFct)==1 & optimFct[1]>2 ) | length(optimFct)>1 ){
+    if( length(optimFct)>1 ){
+      if( length(optimFct)==1 ){ optimFct<-rep( optimFct[1], length(upperF)+1) }  
+      if(is.null(Sn)){
+        grid<-list( seq( Sfrom, Sto, len=2*optimFct[1]+1 ) )
+        grid[[1]]<-grid[[1]][  seq(2,length(grid[[1]]),2)  ]
+        for( co in 1:length( lowerF)  ){
+          grid[[co+1]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co+1]+1 )
+          grid[[co+1]]<-grid[[co+1]][ seq(2,length(grid[[co+1]]),2)  ]
+        }
       } else {
-        op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
-                    lower=c( lowerF )  ,   upper=c( upperF ),
-                    method=method,
-                    verbose= T , control=control, npeaks=nrow( selectedPeaks) , Sn=Sn,
-                    wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+        grid<-list()
+        for( co in 1:length( lowerF)  ){
+          grid[[co]]<-seq( lowerF[co], upperF[co], len=2*optimFct[co]+1 )
+          grid[[co]]<-grid[[co]][ seq(2,length(grid[[co]]),2)  ]
+        }
       }
-      if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
-      
-      outputlist[[currentrep]]<-op
-      outputlist[[currentrep]]$start<-start
-      outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
-      outputlist[[currentrep]]$maxc<-maxc
-      outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
-      outputlist[[currentrep]]$paramSpace<-paramSpace
-      outputlist[[currentrep]]$cn<-cn
+      egrid<-expand.grid( grid )
+      for( currentrep in 1:nrow(egrid) ){
+        # Overwrites these global par for each grid point.
+        
+        # paramSpace<<-c()
+        
+        thisMn<<-99999; 
+        start<-as.numeric( egrid[currentrep,] )
+        cat( start ,"\n") 
+        if( is.null(control) ){ 
+          stop("Error: must specify control. See ?optim.") 
+        }
+        if( is.null(Sn)){
+          op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
+                      lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
+                      method=method,
+                      verbose= T , control=control, npeaks=nrow( selectedPeaks) , 
+                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+        } else {
+          op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
+                      lower=c( lowerF )  ,   upper=c( upperF ),
+                      method=method,
+                      verbose= T , control=control, npeaks=nrow( selectedPeaks) , Sn=Sn,
+                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+        }
+        if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+        
+        outputlist[[currentrep]]<-op
+        outputlist[[currentrep]]$start<-start
+        outputlist[[currentrep]]$subset<- paste( subset, collapse=",")
+        outputlist[[currentrep]]$maxc<-maxc
+        outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
+        outputlist[[currentrep]]$paramSpace<-paramSpace
+        outputlist[[currentrep]]$cn<-cn
+      }
     }
-  }
   }
   
   
