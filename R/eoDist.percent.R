@@ -211,10 +211,12 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
       
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+      # because minimization is done, and focus is on fraction capture:
+      op$value<-1-op$value 
       
       outputlist[[currentrep]] <- op
       outputlist[[currentrep]]$start<-NULL
-          outputlist[[currentrep]]$maxc<-maxc
+      outputlist[[currentrep]]$maxc<-maxc
       outputlist[[currentrep]]$maxsubcldiff<-maxsubcldiff
       outputlist[[currentrep]]$subset<-"ALL"
       outputlist[[currentrep]]$paramSpace<-paramSpace
@@ -245,6 +247,8 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
       
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+      # because minimization is done, and focus is on fraction capture:
+      op$value<-1-op$value 
       
       outputlist[[currentrep]]<-op
       outputlist[[currentrep]]$start<-start
@@ -301,6 +305,8 @@ coverParamSpace.percent <- function(  segments, verbose=T , addToParamSpace=F , 
                       method=method, verbose= T , control=control, Sn=Sn,...)
         }
         if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
+        # because minimization is done, and focus is on fraction capture:
+        op$value<-1-op$value 
         
         outputlist[[currentrep]]<-op
         outputlist[[currentrep]]$start<-start
