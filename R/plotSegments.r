@@ -28,8 +28,10 @@ if( !is.null(file) ){
 }
 
 # recoding chr23 and chr24
-segments$chrom[ segments$chrom=="chr23"]<-"chrX"
-segments$chrom[ segments$chrom=="chr24"]<-"chrY"
+if( any( segments$chrom=="chr23" )  )
+  segments$chrom[ segments$chrom=="chr23"]<-"chrX"
+if( any( segments$chrom=="chr24" )  )
+  segments$chrom[ segments$chrom=="chr24"]<-"chrY"
 
 if( is.null(maskmap) ){ maskmap<- -1 }
 
