@@ -6,6 +6,7 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
 
   ar.tmp<-ar
 
+  # excluding hets that belong in a masked bin
   if( maskmap>0 & !is.null( tumourrangedata ) ){
     binlength<- end( tumourrangedata[1,] ) -start( tumourrangedata[1,] ) +1 
     # in which bin does the het belong to 
@@ -17,12 +18,16 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
  
 
   tmp<-data.frame(chrom=ar.tmp[,1], pos=ar.tmp[,2] , ar =ar.tmp[,3]/(ar.tmp[,3]+ar.tmp[,4]) ) 
-  tmp$chrom<- factor( as.character(tmp$chrom), levels=c( paste("chr",1:22,sep="") ,"chrX","chrY", "chrM")   ) 
+  # selecting autosomal chromosomes
+  sel<-is.element( tmp$chrom, paste("chr",1:22,sep="") )
+  tmp<-tmp[sel,]
+  # relabel chromosomes into integers
+  tmp$chrom<- factor( as.character(tmp$chrom), levels=c( paste("chr",1:22,sep="") ) )
   tmp$chrom<-as.numeric( tmp$chrom )
-  tmp<- tmp[tmp$chrom < 23, ]
+  # don't know why this was there...
   tmp<- tmp[ !is.na( tmp$chrom ),] 
 
-
+  # recomputing AR so that all are <= 0.5 
   sel<-tmp$ar>.5
   tmp$ar[sel]<-1-tmp$ar[sel]
   
