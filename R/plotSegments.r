@@ -103,7 +103,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
 
        main<-chr
        if( !is.null( title ) ){ main<-paste( title,chr, sep="/" ) }
-       title( main=main  , line=4.5, cex.main = cex.main  )
+       title( main=main  , line=NA, cex.main = cex.main  )
        abline( h=0:ceiling(max(ylim)), lty=1 , col="black" )
        sel<- segments$chrom ==chr 
        if( sum(sel)>0 ){
@@ -118,7 +118,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
             
               if( subseg[s,"meanmap"]>maskmap ){
                 lines( c( subseg[s,"start.pos"], subseg[s,"end.pos"] ), c( subseg[s,segcolumn], subseg[s,segcolumn] ) , 
-                   lwd=tlwd+1 ,  lty=tlty, col=shadow )
+                   lwd=tlwd*1.2 ,  lty=tlty, col=shadow )
                 lines( c( subseg[s,"start.pos"], subseg[s,"end.pos"] ), c( subseg[s,segcolumn], subseg[s,segcolumn] ) , 
                    lwd=tlwd ,  lty=tlty, col=segcol[sel][s] )
               }
