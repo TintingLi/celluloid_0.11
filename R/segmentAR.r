@@ -26,7 +26,8 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
   tmp$chrom<-as.numeric( tmp$chrom )
   # don't know why this was there...
   tmp<- tmp[ !is.na( tmp$chrom ),] 
-
+  tmp<-tmp[ order( tmp$chrom, tmp$pos),] 
+  
   # recomputing AR so that all are <= 0.5 
   sel<-tmp$ar>.5
   tmp$ar[sel]<-1-tmp$ar[sel]

@@ -4,13 +4,16 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
 
  binlength<- end(rangedata[1,])-start(rangedata[1,])+1 
 
- # must not disrupt the order
  tmp<-data.frame(chrom=rangedata$space, pos=start(rangedata), rc=rangedata$reads.gc )
+
+ selstdchr <-is.element( tmp$chrom, c(paste("chr",1:22,sep=""),"chrX","chrY" ) )
  
+ tmp<-tmp[selstdchr,] 
  tmp$chrom<- factor( as.character(tmp$chrom), levels=c(paste("chr",1:22,sep=""),"chrX","chrY" ) )
  tmp$chrom<-as.numeric( tmp$chrom )
 
- sel<- rangedata$map< maskmap  
+ sel<- rangedata$map[selstdchr] < maskmap  
+ # DROPPING 
  if( maskadj & FALSE ){
   # picking adjacent bins as well; might be a problems when switching chr
   sell<-c( F, sel[-length(sel)] )
@@ -23,6 +26,8 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
 
  require(copynumber)
 
+ tmp<-tmp[ order( tmp$chrom, tmp$pos ),] 
+ 
  tmp.win<-winsorize( tmp )
  tmp.seg <- pcf( data=tmp.win, gamma=gamma , kmin=kmin    , digits=4 )
  

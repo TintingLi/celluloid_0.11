@@ -9,7 +9,10 @@ meanMapInSeg<-function( seg, rangedata ){
  for( i in 1:nrow( seg) ){
   if( i%%25==0 | i==1 )
     cat("calculating mean mappability in segment",i,"of",nrow(seg),"\n")
-  sel<- c == seg[i,"chrom"] & s>=seg[i,"start.pos"] & e<= seg[i,"end.pos"] 
+  chr<-seg[i,"chrom"]
+  if( chr=="chr23" ){ chr="chrX" } 
+  if( chr=="chr24" ){ chr="chrY" }
+  sel<- c == chr & s>=seg[i,"start.pos"] & e<= seg[i,"end.pos"] 
   seg[i,"meanmap"]<-mean( m[sel], na.rm=T )
  }
  return(seg)

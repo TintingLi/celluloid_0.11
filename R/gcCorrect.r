@@ -119,13 +119,14 @@ gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesiz
   
    rangedata$ignore<-F
    rangedata$ignore[ is.na(reads) | is.na( rangedata$gc )] <- T
+   # only working with autosomal chromosomes for correction purposes. All chrom will be corrected, though
    rangedata$ignore[ !is.element( rangedata$space, paste("chr",1:22,sep="") ) ] <- T 
    
    # ignoring read count that are outliers (in the boxplot sense) for correction purposes  
 
    cat("Identifying and ignoring outlier read counts...")
 
-   bp<-boxplot( reads, range=bprange, plot=F )
+   bp<-boxplot( reads[ !rangedata$ignore ], range=bprange, plot=F )
    rangedata$ignore[ reads < bp$stats[1,1] | reads > bp$stats[5,1]  ] <- T
 
    rangedata$ignore[ rangedata$map < mappability ] <- T 
