@@ -7,7 +7,7 @@ makeTransparent<-function(someColor, alpha=0)
 
 ##  tlwd=5; tlty=1;tcol=NULL; nlwd=3; nlty=3
 plotSegment <- function( tumourrangedata, segments, ar=NULL, n.rc.seg =NULL , columns=NULL, maskmap=NULL, 
-                       file="Rplot%03d", device="pdf", title=NULL, chr=NULL, perpage=4 , 
+                       file="Rplot%03d", device="pdf", main=NULL, line=4.5, chr=NULL, perpage=4 , 
                        layoutmat=NULL, width= 8.5, height=11 , ylim=c(-.5,8 ),
                        tlwd=5, tlty=1, tcol=NULL, nlwd=3, nlty=3, ncol=gray(.5) , alpha=50, cex.axis=1,cex.lab=1, cex.main=1, 
                        annotation=NULL, cex.annotation=1 , marCN = c(0.5,5,6,1), marAR=c(3.5,5,0.5,1),  ...){
@@ -103,7 +103,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
 
        main<-chr
        if( !is.null( title ) ){ main<-paste( title,chr, sep="/" ) }
-       title( main=main  , line=NA, cex.main = cex.main  )
+       title( main=main  , line=line , cex.main = cex.main  )
        abline( h=0:ceiling(max(ylim)), lty=1 , col="black" )
        sel<- segments$chrom ==chr 
        if( sum(sel)>0 ){

@@ -9,7 +9,7 @@ Plot segments
 }
 \usage{
 plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, maskmap = NULL, 
-            file = "Rplot\%03d", device="pdf", main = NULL, chr = NULL, perpage = 4, layoutmat = NULL, 
+            file = "Rplot\%03d", device="pdf", main = NULL, line=4.5, chr = NULL, perpage = 4, layoutmat = NULL, 
             width = 8.5, height = 11 , ylim = c(-0.5, 8), tlwd = 5, tlty = 1, 
             tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), alpha=50, cex.axis=1, cex.lab=1, 
             cex.main=1, annotation=NULL, cex.annotation=1,marCN=c(0.5,5,6,1), marAR=c(3,5,0.5,1) , ... )
@@ -37,9 +37,10 @@ Only plot a segment if its mean mappability is above maskmap. Plot all segments 
 File prefix; suffix is appended based on device. Set to NULL to display on screen.
 }
 \item{device}{One of "pdf" (default),"bmp","jpeg", "png","tiff".}
-  \item{title}{
+  \item{main}{
 main title for the graph (as in title(main=)). Defaults to the chromosome number.
 }
+\item{line}{Placement of main: this many lines outwards from the plot edge. See ?title.}
   \item{chr}{
 Which chromosomes to plot. If NULL defaults to all chromosomes.
 }
