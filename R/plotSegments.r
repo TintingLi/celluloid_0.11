@@ -192,6 +192,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
      }
 
    }  else {
+        par( mar=c(3,5,0.5,1), xaxs="i", yaxs="i"    )
         plot.new()
         plot.window( xlim=XLIM, ylim=c(0,1)  )
         axis( 1, at=seq(0,300000000, 10000000), labels=as.character( seq(0,300000000, 10000000)/1000 ) , cex.axis=cex.axis)
