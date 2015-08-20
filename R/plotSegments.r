@@ -10,7 +10,7 @@ plotSegment <- function( tumourrangedata, segments, ar=NULL, n.rc.seg =NULL , co
                        file="Rplot%03d", device="pdf", title=NULL, chr=NULL, perpage=4 , 
                        layoutmat=NULL, width= 8.5, height=11 , ylim=c(-.5,8 ),
                        tlwd=5, tlty=1, tcol=NULL, nlwd=3, nlty=3, ncol=gray(.5) , alpha=50, cex.axis=1,cex.lab=1, cex.main=1, 
-                       annotation=NULL, cex.annotation=1 ,...){
+                       annotation=NULL, cex.annotation=1 , marCN = c(0.5,5,6,1), marAR=c(3.5,5,0.5,1),  ...){
 
 
 if( !is.null(file) ){
@@ -93,7 +93,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
          y<-y[!mask]
        }
     
-       par( mar=c(0.5,5,6,1 ) )
+       par( mar= marCN )
        plot.new()
        plot.window( ylim=ylim , xlim=XLIM ) 
        title( ylab="copy number" , xlab="" , cex.lab=cex.lab )
@@ -154,7 +154,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
         subar$ar<-subar[,3]/(subar[,3]+subar[,4])
         hh<-hist2d ( subar$POS, subar$ar , nbins=c( floor( nrow(subar)/50 ), 20 ) , show=F  )
      
-        par( mar=c(3,5,0.5,1), xaxs="i", yaxs="i"    )
+        par( mar=marAR, xaxs="i", yaxs="i"    )
 
         plot.new()
         plot.window( xlim=XLIM, ylim=c(0,1)  )
@@ -184,7 +184,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
        box()
       } else {
         
-        par( mar=c(3,5,0.5,1), xaxs="i", yaxs="i"    )
+        par( mar= marAR , xaxs="i", yaxs="i"    )
         plot.new()
         plot.window( xlim=XLIM, ylim=c(0,1)  )
         axis( 1, at=seq(0,300000000, 10000000), labels=as.character( seq(0,300000000, 10000000)/1000 ) , cex.axis=cex.axis )
@@ -194,7 +194,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
      }
 
    }  else {
-        par( mar=c(3,5,0.5,1), xaxs="i", yaxs="i"    )
+        par( mar=marAR, xaxs="i", yaxs="i"    )
         plot.new()
         plot.window( xlim=XLIM, ylim=c(0,1)  )
         axis( 1, at=seq(0,300000000, 10000000), labels=as.character( seq(0,300000000, 10000000)/1000 ) , cex.axis=cex.axis)
