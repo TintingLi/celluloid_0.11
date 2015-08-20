@@ -27,6 +27,9 @@ if( !is.null(file) ){
   } else {stop( paste("unrecognized device: ",device) ) }
 }
 
+# recoding chr23 and chr24
+segments$chrom[ segments$chrom=="chr23"]<-"chrX"
+segments$chrom[ segments$chrom=="chr24"]<-"chrY"
 
 if( is.null(maskmap) ){ maskmap<- -1 }
 
