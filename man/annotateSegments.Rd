@@ -49,7 +49,7 @@ prepCN(12)
 ePP <- ePeakPos( S= 0.6260699, t=c(0.02222, 0.97778), cn=cn  )
 segments<-scaleSegments(t.ar.seg ,  ePP )
 segments<-annotateSegments(segments, ePP)
-}
+}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }
