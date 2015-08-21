@@ -60,9 +60,9 @@ maxsubcldiff is a parameter of prepCN that indicates the upper bound for the dif
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-prepCN(6,2,.5)
-epp<-ePeakPos( S=.5, t=c(.1,.7,.2) , cn=cn , preserveMatPatDiff=FALSE )
-head(epp)
+prepCN(12)
+ePP <- ePeakPos( S= 0.6260699, t=c(0.02222, 0.97778), cn=cn  )
+head(ePP)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

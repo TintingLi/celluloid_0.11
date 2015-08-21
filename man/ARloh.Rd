@@ -46,17 +46,13 @@ Mathieu Lemire
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x, S, n) 
-{
-    k <- 2 * (x - S * n)/(S - S * n)
-    return(n/(2 * n + (1 - n) * k))
-  }
+\examples{\dontrun{
+# select a few peaks or segments that are LOH
+sp <-  selectPeaks( cntr, copyAr , getLocal=F ) 
+x<-sp$x; y<-sp$y
+nls.fit<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), 
+               lower=list(n=0 ) , algo="port" )
+Sn<-  summary(nls.fit)$coefficients[1,1]
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

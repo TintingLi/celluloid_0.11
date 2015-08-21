@@ -103,7 +103,13 @@ Mathieu Lemire
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-
+\examples{\dontrun{
+cntr<-showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
+       seed=12345  , xlim=c(0,2) , nx=200, ny=50 )
+sp <-  selectPeaks( cntr, copyAr , getLocal=F ) 
+li1<-coverParamSpace( selectedPeaks=sp , optimFct=2, lowerF=c(0), upperF=c(1),  
+       Sfrom=.25, Sto=2 , maxc=12 , control=list( maxit=1000  ) )
+}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

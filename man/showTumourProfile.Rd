@@ -90,7 +90,15 @@ Mathieu Lemire
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-
+\examples{\dontrun{
+showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
+       seed=12345  , xlim=c(0,2) , nx=200, ny=50  )
+prepCN(12)
+ePP<-plotModelPeaks( S= 0.6260699, t=c(0.02222, 0.97778),
+       selectedPoints=sp,cn=cn, epcol="red",epcex=1,eplwd=3 )
+addLabels( ePP, manual=T)
+}}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }
