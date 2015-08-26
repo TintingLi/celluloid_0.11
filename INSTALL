@@ -5,7 +5,7 @@ This is version 0.11.0 of celluloid. Check your version of celluloid with
 
 Check for a newer version at
 
- https://github.com/lemirema/celluloid_0.11/blob/master/INSTALL
+ https://github.com/mathieu-lemire/celluloid_0.11/blob/master/INSTALL
 
 Install bioconductor dependencies first:
 
