@@ -13,6 +13,6 @@ then install celluloid from github:
 
 install.packages("devtools")
 library(devtools)
-install_github("mathieu-lemire/celluloid_0.11")
+install_github("mathieu-lemire/celluloid_0.11", ref="v0.11.0" )
 
 
