@@ -44,6 +44,13 @@ Mathieu Lemire
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
+\examples{
+\dontrun{
+prepCN(12)
+ePP<-ePeakPos( S=0.624, t=c(0.073, 0.923), cn=cn  )
+tcs<- scaleReadCounts( tc , ePP )
+}}
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

@@ -66,6 +66,14 @@ Mathieu Lemire
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
+\examples{
+\dontrun{
+cntr<-showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
+        xlim=c(0,2) , nx=200, ny=50 )
+sp <-  selectPeaks( cntr, copyAr , getLocal=T , 
+                    percentMax=.33, manual=F, nrand=200 , filtersymm=T   ) 
+
+}}
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
