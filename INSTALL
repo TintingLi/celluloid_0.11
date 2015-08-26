@@ -1,5 +1,9 @@
 
-This is version 0.11.0 of celluloid. Check for a newer version at
+This is version 0.11.0 of celluloid. Check your version of celluloid with
+
+library(help=celluloid)
+
+Check for a newer version at
  
    https://github.com/mathieu-lemire/
 
@@ -9,7 +13,7 @@ source("http://bioconductor.org/biocLite.R")
 biocLite("HMMcopy")
 biocLite("copynumber")
 
-then install celluloid from github:
+then install celluloid 0.11.0 from github:
 
 install.packages("devtools")
 library(devtools)
