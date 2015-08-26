@@ -59,7 +59,7 @@ Mathieu Lemire
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\notrun{
+\dontrun{
 Sn<- estimateLOHcurve(t.ar.seg)
 }
 }

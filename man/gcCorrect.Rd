@@ -56,7 +56,7 @@ Mathieu Lemire
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\notrun{
+\dontrun{
 # normal data
 n<- wigsToRangedData( normalWigFile, gcWigFile, mapWigFile )
 nc<-gcCorrect(n) 

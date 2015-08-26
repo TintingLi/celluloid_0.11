@@ -44,7 +44,7 @@ Mathieu Lemire
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\notrun{
+\dontrun{
 t.n.seg<-intersectSegments( t.seg, n.seg )
 }
 }

@@ -51,14 +51,12 @@ Mathieu Lemire}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-\notrun{
-
+\dontrun{
 lm<- coverParamSpace( segments=segmentsubset, control=list( maxit=1000 ), Sn=Sn ,
                       maxc=12,optimFct=1 , nrep=50, 
                       lowerF=c(0), upperF=c( Sn/.25 ), addToParamSpace=T  )
 
 localSolutions <-getLocalSolutions(lm, max=TRUE) 
-
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
