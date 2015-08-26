@@ -98,7 +98,6 @@ ePP<-plotModelPeaks( S= 0.6260699, t=c(0.02222, 0.97778),
        selectedPoints=sp,cn=cn, epcol="red",epcex=1,eplwd=3 )
 addLabels( ePP, manual=T)
 }}
-}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

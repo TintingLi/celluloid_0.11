@@ -53,7 +53,7 @@ x<-sp$x; y<-sp$y
 nls.fit<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), 
                lower=list(n=0 ) , algo="port" )
 Sn<-  summary(nls.fit)$coefficients[1,1]
-}
+}}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }
