@@ -12,7 +12,7 @@ plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NUL
             file = "Rplot\%03d", device="pdf", main = NULL, line=4.5, chr = NULL, perpage = 4, layoutmat = NULL, 
             width = 8.5, height = 11 , ylim = c(-0.5, 8), tlwd = 5, tlty = 1, 
             tcol = NULL, nlwd = 3, nlty = 3, ncol = gray(0.5), alpha=50, cex.axis=1, cex.lab=1, 
-            cex.main=1, annotation=NULL, cex.annotation=1,marCN=c(0.5,5,6,1), marAR=c(3,5,0.5,1) , ... )
+            cex.main=1, annotation=NULL, cex.annotation=1,marCN=c(0.5,5,6,1), marAR=c(3.5,5,0.5,1) , ... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

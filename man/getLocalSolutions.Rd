@@ -8,7 +8,7 @@ Prune output of coverParamSpace
 Takes results from coverParamSpace and prune out solutions that are close one another, with pretty print. 
 }
 \usage{
-getLocalSolutions(li, max=T, pruneS = 0.05, pruneT = 0.025, ploidy = NULL)
+getLocalSolutions(li, max=TRUE, pruneS = 0.05, pruneT = 0.025, ploidy = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
