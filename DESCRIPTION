@@ -8,5 +8,6 @@ Maintainer: Mathieu Lemire <mathieu.lemire@oicr.on.ca>
 Description: A pragmatic tool to evaluate ploidy, cellularity, clonal and sub-clonal 
 	     populations from tumour whole genome sequencing data, and to appropriately 
 	     derive absolute copy numbers profiles. 
-Depends: HMMcopy, copynumber, GenSA, data.table, gplots, MASS,fields
+Depends: HMMcopy
+Imports: copynumber, GenSA, data.table, gplots, MASS,fields, stats
 License: file LICENSE

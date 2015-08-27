@@ -24,3 +24,10 @@ export(
 "showTumourProfile",
 "plotSegment"
 )
+importFrom(MASS, kde2d )
+importFrom(copynumber, pcf )
+importFrom(copynumber, winsorize )
+importFrom(data.table, rbindlist)
+importFrom(GenSA, GenSA)
+importFrom(fields, interp.surface)
+importFrom(gplots, hist2d)
