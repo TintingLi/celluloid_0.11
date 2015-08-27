@@ -61,7 +61,7 @@ estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=1000
     x<-selectedPoints[,1]
     y<-selectedPoints[,2]
     
-    nnllss<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), lower=list(n=0 ) , algo="port" )
+    nnllss<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), lower=list(n=0 ) , algorithm="port" )
     Sn<-  summary(nnllss)$coefficients[1,1]
     x <- seq(Sn, 2, .01 ) 
     points( x , ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )

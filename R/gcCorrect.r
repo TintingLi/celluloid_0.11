@@ -20,7 +20,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
   cat( "gcCorrect: first pass\n")
   tc<-gcCorrect( rangedata , maskmap=FALSE, sampletype="normal" )
   
-  t.seg <- segmentSeqData( tc , k=50 , maskmap=0, skipmeanmap=T )
+  t.seg <- segmentSeqData( tc , kmin=50 , maskmap=0, skipmeanmap=T )
   
   # will now add a tmp column to tc to include mean segment values 
   
