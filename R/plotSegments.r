@@ -133,7 +133,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
        }
 
        if( !is.null(n.rc.seg)  ){
-         sel<-n.rc.segments$chrom ==chr
+         sel<-n.rc.seg$chrom ==chr
          if( sum(sel)>0 ){ 
           subsegn <- n.rc.seg[ sel,]
            for( s in 1:nrow(subsegn)){
