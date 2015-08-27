@@ -21,8 +21,7 @@ data.frame returned from a call to ePeakPos.
 }
 
 \author{
-%%  ~~who you are~~
-}
+Mathieu Lemire}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 

@@ -67,9 +67,6 @@ Only plot pairs of points in copyAr. Do not plot contour plot.
 }
 \item{plot}{Set to FALSE if no plot is required. The function still returns the output of kde2d.}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 
 \value{
 (Invisible) list of values that are returned from kde2d or hist2d ($x, $y and $z)

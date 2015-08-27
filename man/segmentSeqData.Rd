@@ -29,9 +29,7 @@ Ignore bins adjacent to bins with mappability less than maskmap. NOT USED.
 }
 \item{skipmeanmap}{Skip call to meanMapInSeg}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 Data fram returned by copynumber::pcf, to which is added a column named meanmap, that contains the mean mappability calculated in each segment.
 %%  ~Describe the value returned
