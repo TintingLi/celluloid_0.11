@@ -3,3 +3,4 @@
 .RData
 .gitignore
 celluloid_0.11.Rproj
+.Rbuildignore
