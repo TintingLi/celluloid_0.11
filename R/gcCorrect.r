@@ -38,7 +38,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
                                        tmp<- data.frame(tmp,as.numeric(x[4]) )
                                        names( tmp)<-c("bin","mean"); return(tmp) }} )
   
-  require( data.table) 
+  #require( data.table) 
   meaninbins <-rbindlist(meaninbins)
   
   # to keep track of the line number in tc

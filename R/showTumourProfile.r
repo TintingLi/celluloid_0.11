@@ -7,8 +7,8 @@ showTumourProfile<-function(copyAr, nx=200, ny=50, maxPoints=50000, selected=NUL
                             nopoints=F , hist2d=F  , chr=NULL , noise=NULL, 
                             col=terrain.colors(50) , onlypoints=F ,plot=T ){
   
-  require(gplots)
-  require(MASS) 
+  #require(gplots)
+  #require(MASS) 
   
   if( is.null(chr) ){
     tmpCopyAr<-copyAr

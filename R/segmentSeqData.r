@@ -24,7 +24,7 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
  tmp<-tmp[!sel,] 
  tmp<- tmp[ !is.na(tmp$rc),] 
 
- require(copynumber)
+ #require(copynumber)
 
  tmp<-tmp[ order( tmp$chrom, tmp$pos ),] 
  

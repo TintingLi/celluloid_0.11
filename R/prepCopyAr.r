@@ -11,7 +11,7 @@
 
 prepCopyAr <- function( seg, ar, tumourrangedata ){
 
- require( data.table) 
+ #require( data.table) 
 
  tmp<-tumourrangedata[1,]
  binlength<-end( tmp )-start(tmp) + 1

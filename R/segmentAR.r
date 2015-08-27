@@ -32,7 +32,7 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
   sel<-tmp$ar>.5
   tmp$ar[sel]<-1-tmp$ar[sel]
   
-  require(copynumber)
+  #require(copynumber)
   tmp.win<-winsorize( tmp )
   ar.seg<- pcf( data=tmp.win, gamma=5000 , kmin=100    , digits=4 )
   ar.seg$chrom<-paste("chr", ar.seg$chrom, sep="")   
