@@ -9,5 +9,5 @@ Description: A pragmatic tool to evaluate ploidy, cellularity, clonal and sub-cl
 	     populations from tumour whole genome sequencing data, and to appropriately 
 	     derive absolute copy numbers profiles. 
 Depends: HMMcopy
-Imports: copynumber, GenSA, data.table, gplots, MASS,fields, stats
+Imports: copynumber, GenSA, data.table, gplots, MASS,fields
 License: file LICENSE
