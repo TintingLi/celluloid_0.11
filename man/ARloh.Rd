@@ -35,8 +35,8 @@ Mathieu Lemire
 # select a few peaks or segments that are LOH
 sp <-  selectPeaks( cntr, copyAr , getLocal=F ) 
 x<-sp$x; y<-sp$y
-nls.fit<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), 
-               lower=list(n=0 ) , algo="port" )
+nls.fit<- nls( y ~ ARloh( x, 1 ,n ), start=list(n=0.01  ), 
+               upper=list( n=1 ), lower=list(n=0 ), algo="port" )
 Sn<-  summary(nls.fit)$coefficients[1,1]
 }}
 % Add one or more standard keywords, see file 'KEYWORDS' in the

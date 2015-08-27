@@ -8,9 +8,10 @@ Add expected peak locations
 Add expected peak locations to a plot obtained from showTumourProfile.
 }
 \usage{
-plotModelPeaks(par = NULL, S = NULL, t = NULL, selectedPoints = NULL, cn, 
-               epcol = "red", epcex = 3, eplwd = 3, eppch = 21, spcol = "black",
-               sppch = 19, spcex = 1, splwd = 1, addlabels = F, preserveMatPatDiff=T, 
+plotModelPeaks(par = NULL, S = NULL, t = NULL, selectedPoints = NULL, 
+               cn, epcol = "red", epcex = 3, eplwd = 3, eppch = 21, 
+               spcol = "black", sppch = 19, spcex = 1, splwd = 1, 
+               addlabels = F, preserveMatPatDiff=T, 
                preserveMaxSubClDiff=T , plot=TRUE , ...)
 }
 %- maybe also 'usage' for other objects documented here.

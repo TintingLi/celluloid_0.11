@@ -7,7 +7,8 @@
 \description{Function to estimate LOH curve
 }
 \usage{
-estimateLOHcurve(segments, cntr = NULL, plot = F, manual = F, minsize = 1e+07, minmap = 0.9, maxmean = 1.25)
+estimateLOHcurve(segments, cntr = NULL, plot = F, manual = F, 
+                  minsize = 1e+07, minmap = 0.9, maxmean = 1.25)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

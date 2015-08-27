@@ -6,7 +6,8 @@ Function to segment allelic ratio data}
 Function to segment allelic ratio data
 }
 \usage{
-segmentAR(ar, tumourrangedata = NULL, gamma = 500, kmin = 100, maskmap = 0.8)
+segmentAR(ar, tumourrangedata = NULL, gamma = 500, kmin = 100, 
+          maskmap = 0.8)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +29,7 @@ Ignore SNPs falling in bins with mappability less than maskmap. Only used if tum
 }
 \details{
 ar must have the following columns:
+\verb{
 
 head(ar)
    CHR    POS REF_COUNT VAR_COUNT
@@ -38,7 +40,7 @@ head(ar)
 5 chr1 755955        26        14
 6 chr1 758555        11        11
 }
-
+}
 \author{
 Mathieu Lemire
 }

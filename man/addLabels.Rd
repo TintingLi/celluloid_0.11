@@ -8,7 +8,8 @@ Add labels to a plot.
 Add labels that describe the copy number configuration of peaks from a showTumourProfile graph. 
 }
 \usage{
-addLabels(epp, selectedPoints = NULL, manual = F, cex = 0.5, bg = "white", ...)
+addLabels(epp, selectedPoints = NULL, manual = F, cex = 0.5, 
+          bg = "white", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

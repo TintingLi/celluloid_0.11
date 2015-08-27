@@ -8,7 +8,8 @@ Objective function
 This is the objective function to be minimized. It is not meant to be called directly. 
 }
 \usage{
-peakProximity(v, selectedPeaks, wd, verbose = T, npeaks=NULL , Sn=NULL, xonly,  ...)
+peakProximity(v, selectedPeaks, wd, verbose = T, npeaks=NULL, 
+              Sn=NULL, xonly,  ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -8,8 +8,8 @@ Total distance between observed and (closest) expected peaks.
 Calculates the total distance between observed peaks and (closest) expected peaks, with added penalty to force a specific copy number configuration to one of the peak.  Not meant to be called directly. 
 }
 \usage{
-eoDist(selectedPeaks, S, t, wd, xonly = F, weightbydiff = F, weightbyarp = F, 
- penaltymultiplier = 1000, penaltymultipliery = 0, ...)
+eoDist(selectedPeaks, S, t, wd, xonly = F, weightbydiff = F, 
+ weightbyarp = F, penaltymultiplier = 1000, penaltymultipliery = 0, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

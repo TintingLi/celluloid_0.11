@@ -8,7 +8,8 @@ Correction for GC content
 This function performs GC correction of read counts in bins, by means of loess. 
 }
 \usage{
-gcCorrect(rangedata, sampletype="normal",span = 0.3, mappability = 0.9, samplesize = 50000, bprange = 6, maskmap=T )
+gcCorrect(rangedata, sampletype="normal",span = 0.3, mappability = 0.9, 
+            samplesize = 50000, bprange = 6, maskmap=T )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +34,9 @@ That many random bins are selected to derive GC correction
 \details{
 If sampletype is "tumor", then a first segmentation round is done to adjust the read counts for the segments' height.}
 \value{
-Same object rangedata, with an additional column named reads.gc that contains the (scaled) GC-corrected read counts. More prexcisely the column takes the value rangedata$reads/predict( loess(rangedata$reads~rangedata$gc, ...), rangedata$gc)
+Returns the rangedata, with an additional column named reads.gc that contains the (scaled) GC-corrected read counts. More precisely the column takes the value:
+
+rangedata$reads/predict( loess(rangedata$reads~rangedata$gc, ...), rangedata$gc)
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}

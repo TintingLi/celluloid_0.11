@@ -9,7 +9,8 @@ Expected peak positions
 Given values of S and t parameters and a data frame of allowed copy-number configurations in each clone, the function returns the expected peak locations.
 }
 \usage{
-ePeakPos(par = NULL, S = NULL, t = NULL, cn, preserveMatPatDiff = T, preserveMaxSubClDiff=T )
+ePeakPos(par = NULL, S = NULL, t = NULL, cn, preserveMatPatDiff=T, 
+          preserveMaxSubClDiff=T )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

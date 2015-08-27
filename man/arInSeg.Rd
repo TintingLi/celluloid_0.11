@@ -8,7 +8,8 @@ Estimate the proportion of copies of chromosomes that have the same parental ori
 Estimate the proportion of copies of chromosomes that have the same parental origin, in each segment.
 }
 \usage{
-arInSeg(seg, ar, minhet = 50, maxhet = 5000, control = list(maxit = 1000), tumourrangedata = NULL, maskmap = 0.8)
+arInSeg(seg, ar, minhet = 50, maxhet = 5000, control = list(maxit = 1000), 
+        tumourrangedata = NULL, maskmap = 0.8)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
