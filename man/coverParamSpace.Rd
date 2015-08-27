@@ -10,8 +10,8 @@ Function to set up the optimization.
 \usage{
 coverParamSpace( selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , 
       control=NULL ,  Sfrom=NULL, Sto=NULL,  Sn=NULL, maxc=NULL, 
-      maxsubcldiff=NULL, optimFct=2, lowerF, upperF, nrep=NULL, usesubsets=NULL , 
-      xonly=FALSE,modeat=NULL, weight=NULL, notSeenPenalty=TRUE, method=NULL, ...  )
+      maxsubcldiff=NULL, optimFct=2, lowerF, upperF, nrep=1, usesubsets=NULL , 
+      xonly=FALSE,modeat=NULL, weight=NULL,  method=NULL, ...  )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,9 +64,6 @@ Force the most "frequent" or "highest" peak to represent "modeat" number of copi
 }
 \item{weight}{
 Related to modeat, ignore.
-}
-\item{notSeenPenalty}{
-Only for the case of no subclones. Selected peaks and expected peaks are projected onto the x-axis (the read count/copy number axis). This imposes an additional penalty (distance) for each expected peak that are far from any selected peak, only within the range of selected peaks 
 }
 \item{method}{ Method argument for optim function. Defaults to "L-BFGS-B" if NULL. See ?optim}
   \item{\dots}{

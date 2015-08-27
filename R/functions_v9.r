@@ -226,7 +226,7 @@ eg<-function( cnline ){
 
 eoDist<-function( selectedPeaks  ,  S, t , wd,
                   xonly=F , weightbydiff=F , weightbyarp=F, 
-                  penaltymultiplier=1000, penaltymultipliery=0, notSeenPenalty ,  ...  ){
+                  penaltymultiplier=1000, penaltymultipliery=0 ,  ...  ){
 
  # first element of t is the % of normal cells 
  nsubcl <- length(t)-1 
@@ -346,28 +346,8 @@ if(any( forced > 0 ) ){
    mn<- mnx 
  }
 
- notseenpenalty <- FALSE
-# not implemented for subclones
- if( notSeenPenalty & length( t )==2 ){
-#cat(S,t," ")
-   # ep is expected peak locations, one the x-axis (read count)
-   # this selects which ep are stricly within the selected peak range
-   # I am imposing a penalty to help solutions for which all eps are close to a selected peak
-   # the penalty is, for each ep, the distance between it and the closest selected peak.
-   # I DON'T REMEMBER WHAT MOTIVATED ME TO DO THIS, BY DEFAULT THIS WAS TURNED ON
-   sel<-ep > min(selectedPeaks[,1] ) & ep< max( selectedPeaks[,1] )
-   nn<-sum(sel)
-   dd<-as.matrix( dist( c( ep[sel], selectedPeaks[,1] ) ) )
-   if( nn > 1 ){
-    dd<-dd[ 1:nn, -(1:nn)]  
-    notseenpenalty<- sum( apply( dd, 1, min ) )
-   } else if( nn==1 ){
-    notseenpenalty<- min( dd[1,-1] )
-  }
-# cat("penalty: ", notseenpenalty ,"\n")
- }
 
- return( sum( wd* mn ) + penalty + notseenpenalty  )
+ return( sum( wd* mn ) + penalty  )
 
 }
 
@@ -388,7 +368,7 @@ if(any( forced > 0 ) ){
 #
 
 # v contains S and "t without its last element"
-peakProximity <-function( v, selectedPeaks , wd, verbose=T, npeaks =NULL, Sn=NULL, xonly , notSeenPenalty , ... ){
+peakProximity <-function( v, selectedPeaks , wd, verbose=T, npeaks =NULL, Sn=NULL, xonly , ... ){
 
   if( is.null(Sn) ){
    S<-v[1] 
@@ -401,7 +381,7 @@ peakProximity <-function( v, selectedPeaks , wd, verbose=T, npeaks =NULL, Sn=NUL
    S<-Sn/t[1]
   }
   
-  totDist <- eoDist( selectedPeaks, S=S, t=t, wd=wd ,xonly=xonly, notSeenPenalty=notSeenPenalty, ... ) 
+  totDist <- eoDist( selectedPeaks, S=S, t=t, wd=wd ,xonly=xonly,  ... ) 
 
   if( is.null( npeaks ) ){ npeaks<- nrow(selectedPeaks)}
   # rescaling because a subset of peaks were used. 

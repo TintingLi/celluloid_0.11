@@ -8,7 +8,7 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) 
 
 coverParamSpace<- function(  selectedPeaks=NULL, segments=NULL, verbose=T , addToParamSpace=F , control=NULL ,
                              Sfrom=NULL, Sto=NULL, Sn=NULL, maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
-                             nrep=1  , usesubsets=NULL , xonly=FALSE, modeat=NULL, weight=NULL, notSeenPenalty=TRUE, 
+                             nrep=1  , usesubsets=NULL , xonly=FALSE, modeat=NULL, weight=NULL,  
                              method=NULL, ...  ){
   
   
@@ -27,7 +27,7 @@ coverParamSpace<- function(  selectedPeaks=NULL, segments=NULL, verbose=T , addT
     coverParamSpace.original( selectedPeaks=selectedPeaks,verbose=verbose , addToParamSpace= addToParamSpace, control=control,
                               Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff= maxsubcldiff, optimFct=optimFct , 
                               lowerF=lowerF, upperF=upperF , nrep=nrep  , usesubsets=usesubsets , xonly=xonly, 
-                              modeat=modeat, weight=weight, notSeenPenalty=notSeenPenalty  , method=method, ... )
+                              modeat=modeat, weight=weight,  method=method, ... )
   } else {
     stop("coverParamSpace: one of segments or selectedPeaks must be provided")
   }
@@ -43,7 +43,7 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
                                        Sfrom=NULL, Sto=NULL, Sn=NULL, 
                                        maxc=NULL, maxsubcldiff=NULL , optimFct=2 , lowerF, upperF , 
                                        nrep=1  , usesubsets=NULL , xonly=FALSE, 
-                                       modeat=NULL, weight=NULL, notSeenPenalty=TRUE  , method=NULL, ...  ){
+                                       modeat=NULL, weight=NULL,  method=NULL, ...  ){
   
   
   if( is.null(method) ){method="L-BFGS-B"}
@@ -189,12 +189,12 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
         op <- GenSA( par=NULL ,fn=peakProximity,lower=c( Sfrom , lowerF )  ,   
                      upper=c( Sto, upperF ),  control=control , 
                      selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
-                     wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
+                     wd=wd, xonly=xonly ,  ...  ) 
       } else {
         op <- GenSA( par=NULL ,fn=peakProximity,lower=c( lowerF )  ,   
                      upper=c( upperF ),  control=control , Sn=Sn, 
                      selectedPeaks=selectedPeaks[subset,]  , npeaks=nrow( selectedPeaks) , 
-                     wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty, ...  ) 
+                     wd=wd, xonly=xonly ,  ...  ) 
       }
       
       
@@ -219,7 +219,7 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
       
       op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,]  ,
                   verbose= T , control=control, npeaks=nrow( selectedPeaks), Sn=Sn,  
-                  notSeenPenalty=notSeenPenalty , wd=wd, xonly=xonly,... ) 
+                   wd=wd, xonly=xonly,... ) 
       
       if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
       
@@ -272,13 +272,13 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
                       lower=c( Sfrom , lowerF )  ,   upper=c( Sto, upperF ),
                       method=method,
                       verbose= T , control=control, npeaks=nrow( selectedPeaks) , 
-                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+                      wd=wd, xonly=xonly ,  ... ) 
         } else {
           op<- optim( par=start , fn=peakProximity, selectedPeaks=selectedPeaks[subset,],  
                       lower=c( lowerF )  ,   upper=c( upperF ),
                       method=method,
                       verbose= T , control=control, npeaks=nrow( selectedPeaks) , Sn=Sn,
-                      wd=wd, xonly=xonly , notSeenPenalty=notSeenPenalty , ... ) 
+                      wd=wd, xonly=xonly ,  ... ) 
         }
         if( !is.null( Sn ) ){ op$par<- c( Sn/op$par[1], op$par ) }
         

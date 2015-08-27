@@ -7,7 +7,7 @@ Adds annotations to a segment data.frame
 For each segment in a segment data.frame, the function finds the closest point in the given ePeakPos solution, and annotates the segment with the corresponding number of (say) paternal/maternal copies, in each subclones.  
 }
 \usage{
-annotateSegments(seg, epp, weigths="quadratic")
+annotateSegments(seg, epp, weights="quadratic")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
