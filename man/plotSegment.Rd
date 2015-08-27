@@ -5,7 +5,7 @@
 Plot segments 
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Plot segments
 }
 \usage{
 plotSegment(tumourrangedata, segments, ar = NULL, n.rc.seg = NULL, columns = NULL, maskmap = NULL, 
@@ -114,28 +114,10 @@ devices can plot transparencies, see help page for the device you want if you ge
 value of 255 is opaque.
 
 }
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+Mathieu Lemire}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 \dontrun{
 prepCN(12,1,NULL)

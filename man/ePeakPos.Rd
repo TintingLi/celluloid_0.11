@@ -34,31 +34,10 @@ maxsubcldiff is a parameter of prepCN that indicates the upper bound for the dif
 }
 
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+Mathieu Lemire}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 prepCN(12)
 ePP <- ePeakPos( S= 0.6260699, t=c(0.02222, 0.97778), cn=cn  )

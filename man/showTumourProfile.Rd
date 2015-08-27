@@ -75,21 +75,11 @@ Only plot pairs of points in copyAr. Do not plot contour plot.
 (Invisible) list of values that are returned from kde2d or hist2d ($x, $y and $z)
 }
 
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{\dontrun{
 showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
        seed=12345  , xlim=c(0,2) , nx=200, ny=50  )

@@ -85,21 +85,14 @@ Each component of that list is a list that includes at the minimum the values:
 
 Other values returned by the optimization algorithms are also returned. See the man pages of these functions. 
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire 
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{\dontrun{
 cntr<-showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
        seed=12345  , xlim=c(0,2) , nx=200, ny=50 )

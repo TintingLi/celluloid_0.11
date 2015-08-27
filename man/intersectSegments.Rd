@@ -21,28 +21,11 @@ intersectSegments(seg1, seg2)
 \details{
 NA is used to fill up data from seg1 not found in seg2 or vice versa.  Columns mean and meanmap are from seg1, columns mean.1 and meanmap.1 are from seg2.  These values are extracted from the larger segments in seg1 and seg2 and are not recomputed in the smaller, intersecting segments. 
 }
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 \dontrun{
 t.n.seg<-intersectSegments( t.seg, n.seg )

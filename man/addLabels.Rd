@@ -34,28 +34,14 @@ Additional arguments passed to legend.
 \details{
 Labels are added with a call to legend.  If manual is TRUE, the user is prompted to left-click near expected peaks (epp) to add their associated copy number configurations (right click when done). The format for the copy number configuration is "ab/cd/..", where a and b are the number of maternal and paternal chromosomes in sub-clone 1, c and d the number of maternal and paternal chromosomes in sub-clone 2, etc. 
 }
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{\dontrun{
 showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
        seed=12345  , xlim=c(0,2) , nx=200, ny=50  )

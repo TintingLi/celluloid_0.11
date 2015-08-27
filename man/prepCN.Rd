@@ -49,21 +49,11 @@ Note that 0 copies is treated as if it was 1.
 \value{
 An global object with the name cn is created. This object is expected in some functions. 
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
  prepCN(6,2,.5)
  head(cn)

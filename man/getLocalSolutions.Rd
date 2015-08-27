@@ -26,30 +26,10 @@ Skip the solution if its t parameter vector is within +/- pruneT of the t of a b
 Vector of length 2. Only output solutions consistent with a tumour ploidy above or equal to ploidy[1] and below or equal to ploidy[2].
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire}
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 \dontrun{
 lm<- coverParamSpace( segments=segmentsubset, control=list( maxit=1000 ), Sn=Sn ,

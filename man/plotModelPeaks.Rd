@@ -72,31 +72,11 @@ maxsubcldiff is a parameter of prepCN that indicates the upper bound for the dif
 Additional parameters passed to addLabels.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire 
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{\dontrun{
 showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 
        seed=12345  , xlim=c(0,2) , nx=200, ny=50  )

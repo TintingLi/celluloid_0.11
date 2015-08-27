@@ -51,21 +51,11 @@ The contour plot obtained by showTumourProfile should be symmetrical around y=0.
 \value{
 A data.frame of x and y coordinates. 
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 \dontrun{
 cntr<-showTumourProfile(copyAr, maxPoints=50000 , flatten=.25 , nlev=20, 

@@ -40,20 +40,10 @@ Data fram returned by copynumber::pcf, to which is added a column named meanmap,
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire}
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 \dontrun{
 n<- wigsToRangedData( normalWigFile, gcWigFile, mapWigFile )

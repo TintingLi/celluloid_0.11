@@ -44,21 +44,14 @@ The seg data.frame is returned, with an extra column named "p" containing the es
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Mathieu Lemire
-}
-\note{
-%%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
+
 \examples{\dontrun{
 arInSeg( t.ar.seg, ar,  tumourrangedata=tc , minhet = 50 )
 }}
