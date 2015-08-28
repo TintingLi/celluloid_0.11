@@ -14,8 +14,12 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
   #xdist <-mean( d[d>0] )/2
   # number of red lines expected between two integer values
   sel0 <- apply( epp[, 3:(ncol(epp)-2 )]==0 , 1, all )
-  sel1 <- apply( epp[, seq(3,(ncol(epp)-2 ),2)]==1 , 1, all ) & 
+  if( ncol(epp)-2 > 4 ){
+    sel1 <- apply( epp[, seq(3,(ncol(epp)-2 ),2)]==1 , 1, all ) & 
                   apply( epp[, seq(4,(ncol(epp)-2 ),2)]==0 , 1, all )
+  } else {
+    sel1<- epp[,3]==1 & epp[,4]==0 
+  }
   xdist<- (epp[sel1,"x"]-epp[sel0,"x"])/(nsubcl*2)
   
   tmpseg$xdiff<-xdist
