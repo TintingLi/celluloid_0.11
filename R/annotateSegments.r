@@ -20,6 +20,7 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
   } else {
     sel1<- epp[,3]==1 & epp[,4]==0 
   }
+  nsubcl<-( ncol(epp)-4 )/2 
   xdist<- (epp[sel1,"x"]-epp[sel0,"x"])/(nsubcl*2)
   
   tmpseg$xdiff<-xdist
