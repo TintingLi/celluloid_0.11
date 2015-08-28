@@ -4,8 +4,15 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
   tmpseg$labels<-NA
   tmpseg$dist<- NA 
   tmpseg$we<-NA 
-  d<-dist( epp$x )
-  xdiff<-min( d[d>0] )/2
+  
+  tmp <- apply( epp[, 3:(ncol(epp)-2 )], 1, sum )
+  sel<-tmp==0 | tmp==1 
+  
+  # distance between "red" lines
+  d<-dist( epp$x[sel] )
+  # changed min to mean
+  xdist <-mean( d[d>0] )/2
+  
   tmpseg$xdiff<-xdiff
   tmpseg$dist <- NA
   tmpseg$we<-NA 
