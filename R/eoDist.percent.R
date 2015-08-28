@@ -76,8 +76,8 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   
   epp<-ePeakPos( S=S, t=t, cn=cn, ... )
   
-  tmp <- apply( epp[, 3:(ncol(epp)-2 )], 1, sum )
-  sel<-tmp==0 | tmp==1 
+  #tmp <- apply( epp[, 3:(ncol(epp)-2 )], 1, sum )
+  #sel<-tmp==0 | tmp==1 
   
   # distance between "red" lines
   #d<-dist( epp$x[sel] )
@@ -90,6 +90,7 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   
   eoseg<-rbind(as.matrix( seg[,c("mean","p")]  ), as.matrix( epp[,c("x","ar")] ) )
   
+  if( FALSE ){
   # for each segment, I want to determine the closest "red" lines 
   # on both sides, xdist will be calculated in between them
   d<-outer( as.vector(eoseg[,1]), as.vector(eoseg[,1]) , '-')
@@ -99,10 +100,7 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
                              return(NA)
                           } else { 
                             return(which( v==max( v[v<0] ) )[1] ) } 
-                          } )
-                  
-                  
-                  
+                          } )       
   whleft<- apply( d, 1, function(v){
                           if( !any( v>=0 ) ){
                             return(NA)
@@ -113,7 +111,14 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   
   xdist<-(epp[whright,"x"]-epp[whleft,"x"] )/2
   xdist[ is.na( xdist ) ] <- min( abs( d[d!=0] ), na.rm=T )
-    d<-as.matrix(dist(eoseg) )
+  } else {
+    
+    sel0 <- apply( epp[, 3:(ncol(epp)-2 )]==0 , 1, all )
+    sel1 <- apply( epp[, 3:(ncol(epp)-2 )]==1 , 1, all )
+    xdist<- (epp[sel1,"x"]-epp[sel0,"x"])/(nsubcl+1)
+  }
+  
+  d<-as.matrix(dist(eoseg) )
   d<-d[1:nseg,(nseg+1):(nepp+nseg)] 
   
   mnd<-apply( d, 1, min )
