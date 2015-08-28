@@ -112,9 +112,8 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   
   
   xdist<-(epp[whright,"x"]-epp[whleft,"x"] )/2
-  xdist[ is.na( xdist ) ] <- min( xdist, na.rm=T )
-  
-  d<-as.matrix(dist(eoseg) )
+  xdist[ is.na( xdist ) ] <- min( abs( d[d!=0] ), na.rm=T )
+    d<-as.matrix(dist(eoseg) )
   d<-d[1:nseg,(nseg+1):(nepp+nseg)] 
   
   mnd<-apply( d, 1, min )
