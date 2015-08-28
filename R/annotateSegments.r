@@ -17,7 +17,7 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
   sel1 <- apply( epp[, 3:(ncol(epp)-2 )]==1 , 1, all )
   xdist<- (epp[sel1,"x"]-epp[sel0,"x"])/(nsubcl+1)
   
-  tmpseg$xdiff<-xdiff
+  tmpseg$xdiff<-xdist
   tmpseg$dist <- NA
   tmpseg$we<-NA 
   
