@@ -34,7 +34,7 @@ peakProximity.percent <-function( v, segments , verbose=T, Sn=NULL , ... ){
   }
   
   if(  (verbose &  totDist<=thisMn )  ){     
-    cat(paste( paste("fractionCaptured=",1-totDist, sep="" ) , paste("S=",S, sep=""), 
+    cat(paste( paste("value=",1-totDist, sep="" ) , paste("S=",S, sep=""), 
                paste( "t=c(", paste( t, collapse=", "), ")" ), sep="; "),"\n")
   } 
   return( totDist )

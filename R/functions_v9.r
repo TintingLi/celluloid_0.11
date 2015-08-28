@@ -409,7 +409,7 @@ if( DEBUG ){
   if(  (verbose &  totDist<=thisMn & totDist<99999)  ){ 
    # cat( as.numeric(ta), paste( rownames(selectedPeaks), collapse=",") , "\n", sep="\t"   )
 
-     cat(paste( paste("totDist=",totDist, sep="" ) , paste("S=",S, sep=""), paste( "t=c(", paste( t, collapse=", "), ")" ), sep="; "),"\n")
+     cat(paste( paste("value=",totDist, sep="" ) , paste("S=",S, sep=""), paste( "t=c(", paste( t, collapse=", "), ")" ), sep="; "),"\n")
  
 
 #      cat( as.numeric(ta)  , "\n", sep="\t"   )
