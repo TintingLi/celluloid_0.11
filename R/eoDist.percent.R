@@ -79,8 +79,10 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   tmp <- apply( epp[, 3:(ncol(epp)-2 )], 1, sum )
   sel<-tmp==0 | tmp==1 
   
+  # distance between "red" lines
   d<-dist( epp$x[sel] )
-  xdist <-min( d[d>0] )/2
+  # changed min to mean
+  xdist <-mean( d[d>0] )/2
   
   nseg<-nrow(seg)
   nepp<-nrow(epp)
