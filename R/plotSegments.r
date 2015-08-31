@@ -102,7 +102,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
        # plot( x, y, pch='.', col="gray" , ylim=ylim , xlim=XLIM, xlab="", xaxt="n" , ylab="copy number"  , xaxs="i" )
 
        main<-chr
-       if( !is.null( title ) ){ main<-paste( title,chr, sep="/" ) }
+       if( !is.null( main ) ){ main<-paste( main ,chr, sep="/" ) }
        title( main=main  , line=line , cex.main = cex.main  )
        abline( h=0:ceiling(max(ylim)), lty=1 , col="black" )
        sel<- segments$chrom ==chr 
