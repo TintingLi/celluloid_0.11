@@ -18,10 +18,10 @@ Allelic ratio data frame. See Details.
 Object of class IRange produced by function gcCorrect.
 }
   \item{gamma}{
-Parameter of copynumber::pcf
+Penalty for each discontinuity. See ?copynumber::pcf
 }
   \item{kmin}{
-Parameter of copynumber::pcf
+Minimum number of bins in each segment. See ?copynumber::pcf
 }
  \item{maskmap}{
 Ignore SNPs falling in bins with mappability less than maskmap. Only used if tumourrangedata is provided.

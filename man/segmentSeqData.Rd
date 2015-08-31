@@ -16,10 +16,10 @@ segmentSeqData(rangedata, gamma = 500, kmin = 100, maskmap = 0.8, maskadj = FALS
 Object of class IRange produced by function gcCorrect.
 }
   \item{gamma}{
-Parameter of copynumber::pcf
+Penalty for each discontinuity. See ?copynumber::pcf
 }
   \item{kmin}{
-Parameter of copynumber::pcf
+Minimum number of bins in each segment. See ?copynumber::pcf
 }
   \item{maskmap}{
 Ignore bins with mappability less than this
