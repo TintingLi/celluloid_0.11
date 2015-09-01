@@ -93,6 +93,8 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
          y<-y[!mask]
        }
     
+       plotted<-rep( F, length(x) )
+    
        par( mar= marCN )
        plot.new()
        plot.window( ylim=ylim , xlim=XLIM ) 
@@ -110,6 +112,7 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
 
         for( s in 1:nrow(subseg)){
             selx<-x>= subseg[s,"start.pos"] & x<= subseg[s,"end.pos"]
+            plotted[selx]<-T
             if( alpha > 0 )
                points( x[selx], y[selx], pch='.', col=makeTransparent(segcol[sel][s], alpha=alpha) )
             shadow<-"black"
@@ -128,7 +131,9 @@ if( sum(segcolumn)!=1 ){ stop("could not find column named", columns[2], "in arg
           axis( 3, at=mid, labels=subseg[s,"labels"] , las=2, cex.axis= cex.axis )
          }
         }
-
+        points( x[!plotted], y[!plotted], pch='.', col=makeTransparent(gray(0.50) , alpha=alpha) )
+        
+  
        }
 
        if( !is.null(n.rc.seg)  ){
