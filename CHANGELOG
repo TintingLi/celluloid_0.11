@@ -1,0 +1,3 @@
+#######################################################
+V0.11.1
+Fixed an tmp[sel,] with undefined sel in segmentSeqData
