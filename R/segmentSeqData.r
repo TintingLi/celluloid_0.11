@@ -12,8 +12,7 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
  tmp$chrom<- factor( as.character(tmp$chrom), levels=c(paste("chr",1:22,sep=""),"chrX","chrY" ) )
  tmp$chrom<-as.numeric( tmp$chrom )
 
- sel<- rangedata$map[selstdchr] < maskmap  
- # DROPPING 
+mask # DROPPING 
  if( maskadj & FALSE ){
   # picking adjacent bins as well; might be a problems when switching chr
   sell<-c( F, sel[-length(sel)] )
@@ -21,7 +20,7 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
   sel<- sel|sell|selr
  }
 
- tmp<-tmp[!sel,] 
+# tmp<-tmp[!sel,] 
  tmp<- tmp[ !is.na(tmp$rc),] 
 
  #require(copynumber)
