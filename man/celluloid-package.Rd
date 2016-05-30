@@ -27,7 +27,7 @@ t is the parameter vector c(t[1],...,t[nsubclones+1]), sum(t)=1,  where componen
 
 }
 \author{
-Mathieu Lemire <mathieu.e.lemire@gmail.com>
+Mathieu Lemire <mathieu.lemire@oicr.on.ca>
 }
 
 \keyword{ package }
