@@ -30,7 +30,9 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
   
   # recomputing AR so that all are <= 0.5 
   sel<-tmp$ar>.5
-  tmp$ar[sel]<-1-tmp$ar[sel]
+  sel[ is.na(sel) ]<- FALSE
+  if( sum( sel ) > 0 )
+     tmp$ar[sel]<-1-tmp$ar[sel]
   
   #require(copynumber)
   tmp.win<-winsorize( tmp )
