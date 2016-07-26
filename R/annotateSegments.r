@@ -66,7 +66,7 @@ annotateSegments<-function( seg, epp , weights="quadratic" ){
     tmpseg$dist[s]<- d[1,-1][sel][1]
     m <- epp[sel, ][seq(3, ncol(epp) - 2, 2)]
     p <- epp[sel, ][seq(4, ncol(epp) - 2, 2)]
-    lab <- paste(paste(m, p, sep = ""), collapse = "/")
+    lab <- paste(paste(m, p, sep = "."), collapse = "/")
     tmpseg$labels[s]<-lab
   }
   
