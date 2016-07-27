@@ -1,8 +1,8 @@
 Package: celluloid
 Type: Package
 Title:  CELLULOID: tumour cellularity and ploidy tool
-Version: 0.11.0
-Date: 2015-05-27
+Version: 0.11.2
+Date: 2016-07-27
 Author: Mathieu Lemire
 Maintainer: Mathieu Lemire <mathieu.lemire@oicr.on.ca>
 Description: A pragmatic tool to evaluate ploidy, cellularity, clonal and sub-clonal 

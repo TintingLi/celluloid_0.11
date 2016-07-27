@@ -1,2 +1,8 @@
 #######################################################
-V0.11.1
+v0.11.1
+Bug fix in segmentAR
+#######################################################
+v0.11.2
+Bug fix in gcCorrect when maskmap = T which rescaled reads.gc
+Added dot between maternal.paternal copy numbers in annotatreSegments.r
+#######################################################
