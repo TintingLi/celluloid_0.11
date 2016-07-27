@@ -100,6 +100,8 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
     tc$map[ tc$ignore  ]<- NA 
     ### rescaling, as of v0.11.2, otherwise ploidy may be grossly biased one direction or the other.
     tc$reads.gc<- tc$reads.gc/mean(   tc$reads.gc, na.rm=T )  
+    tc$copy<-log( tc$reads.gc , 2 )
+    
   } else {
     # reverting
     tc$ignore <- F 
@@ -164,6 +166,7 @@ gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesiz
      rangedata$map[ rangedata$ignore  ]<- NA 
      ## v0.11.2
      rangedata$reads.gc <- rangedata$reads.gc/mean( rangedata$reads.gc, na.rm=T )
+     rangedata$copy<-log( rangedata$reads.gc , 2 )
      
    } else {
      # reverting
