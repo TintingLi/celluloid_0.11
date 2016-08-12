@@ -12,7 +12,7 @@ This package contains functions to calculates the cellularity, the ploidy and th
 \tabular{ll}{
 Package: \tab celluloid\cr
 Type: \tab Package\cr
-Version: \tab 0.10\cr
+Version: \tab 0.11\cr
 Date: \tab 2015-02-27\cr
 License: Apache License 2.0
 }
