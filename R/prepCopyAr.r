@@ -34,15 +34,19 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
  binlabels <- data.frame( line=1:nrow(tumourrangedata),
                           bin=paste( tumourrangedata$space,":", start(tumourrangedata), sep="" ) )
  cat(".")
+ cat("\n merging" )
  m<-merge( binlabels , meaninbins, by="bin", all.x=T ) 
- 
- # this new entry in tumourrangedata will hold the segment bins. sm for smooth (from an old code)
- tumourrangedata$smcopy<- NA 
- cat(".")
- tumourrangedata$smcopy<- m$mean[ order(m$line) ] 
 
  cat(".")
- tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA 
+ cat("\n adding columns to tc") 
+ # this new entry in tumourrangedata will hold the segment bins. sm for smooth (from an old code)
+ eval.parent( substitute (
+   tumourrangedata$smcopy<- NA ))
+ eval.parent( substitute (
+   tumourrangedata$smcopy<- m$mean[ order(m$line) ] ))
+ eval.parent( substitute (
+   tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA ))
+ 
  cat(".")
 
  ars <- data.frame( chpo=paste( tumourrangedata$space, start(tumourrangedata), sep="-") ,copy= tumourrangedata$smcopy )
