@@ -22,7 +22,8 @@ export(
 "segmentSeqData",
 "selectPeaks",
 "showTumourProfile",
-"plotSegment"
+"plotSegment","showSTumourProfile",
+"prepSomaticCopyAr","plotSomaticModelPeaks","eSomaticPeakPos"
 )
 importFrom(MASS, kde2d )
 importFrom(copynumber, pcf )
