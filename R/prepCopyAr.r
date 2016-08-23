@@ -36,6 +36,10 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
  cat(".")
  cat("\n merging" )
  m<-merge( binlabels , meaninbins, by="bin", all.x=T ) 
+ 
+ if( FALSE ){ 
+   cat( "DEBUG number of lines in m ", nrow( m ) ,"\nDEBUG number of lines in tumourrangedata", dim(tumourrangedata)) 
+ }
 
  cat(".")
  cat("\n adding columns to tc") 
@@ -46,10 +50,16 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
    tumourrangedata$smcopy<- m$mean[ order(m$line) ] ))
  eval.parent( substitute (
    tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA ))
- 
+# need to the same for local to the function?  
+ tumourrangedata$smcopy<- NA 
+ tumourrangedata$smcopy<- m$mean[ order(m$line) ] 
+ tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA 
+
  cat(".")
 
- ars <- data.frame( chpo=paste( tumourrangedata$space, start(tumourrangedata), sep="-") ,copy= tumourrangedata$smcopy )
+ if( FALSE ) { print( head( tumourrangedata ) )  }
+ chpo<- paste( tumourrangedata$space, start(tumourrangedata), sep="-")
+ ars <- data.frame( chpo=chpo  ,copy= tumourrangedata$smcopy )
  ars<-ars[ !is.na(tumourrangedata$reads.gc) & !tumourrangedata$ignore,] 
  cat(".")
 
@@ -70,6 +80,7 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
 
  rownames(copyAr)<-1:nrow(copyAr)
  cat(" ...done.\n")
+
  return(copyAr) 
 
 }
