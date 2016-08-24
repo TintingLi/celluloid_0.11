@@ -1,6 +1,6 @@
 
 showSTumourProfile<-function(scopyAr, nx=200, ny=50, maxPoints=50000, selected=NULL, 
-                            flatten=.25, xlim=c(0,2), nlev=50  ){
+                            flatten=.25, xlim=c(0,2), nlev=50 , noise=NULL  ){
  #require(MASS)
  if( is.finite(maxPoints) ){
    sa<-sample( 1:nrow(scopyAr), min( maxPoints, nrow(scopyAr)) , replace=F )
@@ -8,8 +8,12 @@ showSTumourProfile<-function(scopyAr, nx=200, ny=50, maxPoints=50000, selected=N
    sa<-1:nrow( scopyAr )
  }
  
- cntr <-kde2d( scopyAr[sa,"copy"] , scopyAr[sa,"sar" ]  , n=c( nx, ny ) , lims=c( xlim, 0,1 ) )
- plot(  scopyAr[sa,1] , scopyAr[sa,2] , pch='.', col="gray", ylim=c(0,1), 
+ if( !is.null( noise ) ){
+   noise<- rnorm( length( sa ) , 0, noise) 
+ } else { noise<-rep(0, length(sa) ) } 
+ 
+ cntr <-kde2d( scopyAr[sa,"copy"] +noise , scopyAr[sa,"sar" ]  , n=c( nx, ny ) , lims=c( xlim, 0,1 ) )
+ plot(  scopyAr[sa,1] + noise , scopyAr[sa,2] , pch='.', col="gray", ylim=c(0,1), 
          xlim=xlim , xaxt = "n" , xlab="Copy number" , ylab="SV AR (%AltAlleles)" ) 
  image(  cntr$x, cntr$y, cntr$z^flatten ,add=T , col=terrain.colors(50) )
  contour( cntr$x, cntr$y, cntr$z^flatten , xlim=xlim , nlev=nlev  , add=T )
@@ -78,18 +82,19 @@ addSomaticLabels_ALT<-function(x , eSP,  ep , all=F ){
 
 addSomaticLabels<-function(  eSP , manual=T  ){
   
+  nc<-ncol(eSP)
+  nsubcl <- length( grep( "sm", names( eSP ) ) )
   if( manual ){ 
-    nc<-ncol(eSP)
     
     id<-identify( eSP$x, eSP$sar , n=1 , labels=""  )
     while( length(id) > 0 ){
       # THIS WON"T WORK FOR SUBCLONES
-      m<-eSP[id,][seq(3,nc-4,2) ]
-      p<-eSP[id,][seq(4,nc-4,2) ]
+      m<-eSP[id,][seq(3, 2*nsubcl+1  ,2) ]
+      p<-eSP[id,][seq(4, 2*nsubcl+2  ,2) ]
       
       chrlab <-  paste( m+p , collapse="/") 
-      somlab<- paste( eSP[id, (nc-1) ] , collapse="/" )
-    
+      somlab<- paste( eSP[id, grep( "sm", names(eSP) )  ] , collapse="/" )
+      
       legend( eSP[id,"x"],  eSP[id,"sar"], 
               legend=  c( chrlab, somlab ),
               cex=.5, bg="white" )
@@ -99,15 +104,26 @@ addSomaticLabels<-function(  eSP , manual=T  ){
     }
     
     
+  } else {
+    for( id in 1:nrow( eSP ) ){
+      m<-eSP[id,][seq(3, 2*nsubcl+1  ,2) ]
+      p<-eSP[id,][seq(4, 2*nsubcl+2  ,2) ]
+      
+      chrlab <-  paste( m+p , collapse="/") 
+      somlab<- paste( eSP[id, grep( "sm", names(eSP) )  ] , collapse="/" )
+      
+      legend( eSP[id,"x"],  eSP[id,"sar"], 
+              legend=  c( chrlab, somlab ),
+              cex=.5, bg="white" )
+    }
   }
-  
 }
 
 
 
 
 
-plotSomaticModelPeaks<-function( S, t , cn, col="red",cex=1,lwd=3 , plot=T  ){
+plotSomaticModelPeaks<-function( S, t , cn, col="red",cex=1,lwd=3 , plot=T , eSP=NULL ){
   
   
   epp <- ePeakPos(S=S, t=t ,cn=cn )
@@ -115,20 +131,22 @@ plotSomaticModelPeaks<-function( S, t , cn, col="red",cex=1,lwd=3 , plot=T  ){
   ep<- ( apply( cn, 1, RCC, S=S, t=t ) ) 
   d<-data.frame(cn,ep)
   d<-d[ order( d$ep),] 
-  
-  s<-seq(1,length(ep),2)
-  axis( 1, at=d$ep[s] , labels=apply( as.matrix(d[,2:ncol(cn)]), 1, paste, collapse =".")[s] , las=2  , cex.axis=.75) 
-  s<-seq(2,length(ep),2)
-  axis( 3, at=d$ep[s] , labels=apply( as.matrix(d[,2:ncol(cn)]), 1, paste, collapse =".")[s] , las=2  , cex.axis=.75  ) 
+  if( plot ){
+    s<-seq(1,length(ep),2)
+    axis( 1, at=d$ep[s] , labels=apply( as.matrix(d[,2:ncol(cn)]), 1, paste, collapse =".")[s] , las=2  , cex.axis=.75) 
+    s<-seq(2,length(ep),2)
+    axis( 3, at=d$ep[s] , labels=apply( as.matrix(d[,2:ncol(cn)]), 1, paste, collapse =".")[s] , las=2  , cex.axis=.75  ) 
+  }
   sel<- apply( epp, 1, function(x){  return( all( x[seq( 3,length(x)-2, 2 ) ]==x[3] &  x[seq( 4,length(x)-2, 2 ) ]==x[4]  ) ) } ) 
   
   x<-unique( epp[sel,"x"] )
   abline( v=x, col=col)
-  
-  eSP<-eSomaticPeakPos( t,epp  )
+
+  if( is.null( eSP) )
+    eSP<-eSomaticPeakPos( t,epp  )
   
   if( plot ){
-    xy<- unique( eSP[,c(5,ncol( eSP) ) ] ) 
+    xy<- unique( eSP[,c("x","sar")  ] ) 
     points( xy[,1], xy[,2] , pch=21,  col=col, cex=cex, lwd=lwd  )
   }
   
@@ -139,19 +157,19 @@ plotSomaticModelPeaks<-function( S, t , cn, col="red",cex=1,lwd=3 , plot=T  ){
 
 
 
-eSomaticPeakPos <-function( t , ePP ){
+eSomaticPeakPos <-function( t , epp ){
   
   
-  nsubcl <- (ncol(ePP)-4 )/2 
-  output<-  apply( ePP , 1, 
+  nsubcl <- (ncol(epp)-4 )/2 
+  output<-  apply( epp , 1, 
                    function(x){
                      x<-as.numeric(x)
-                     mat<-x[seq(3,ncol(ePP)-2 ,2)]
-                     pat<-x[seq(4,ncol(ePP)-2 ,2)]
+                     mat<-x[seq(3,ncol(epp)-2 ,2)]
+                     pat<-x[seq(4,ncol(epp)-2 ,2)]
                      copy<- mat+pat 
                      li<- list()
                      for( i in 1:nsubcl  ){
-                       li[[i]]<- 1:copy[i]
+                       li[[i]]<- 0:copy[i]
                      }
                      grid <- expand.grid( li ) 
                      sar<- apply( grid, 1, 
@@ -159,15 +177,15 @@ eSomaticPeakPos <-function( t , ePP ){
                                       sum( g*t[2:(nsubcl+1)] )/(2*t[1]+sum( t[2:(nsubcl+1)]*copy ) )
                                     }
                      )
-                     d<-data.frame( matrix( x, ncol=ncol(ePP), nrow=nrow(grid), byr=T ) , grid, sar )
+                     d<-data.frame( matrix( x, ncol=ncol(epp), nrow=nrow(grid), byr=T ) , grid, sar )
                      return(d) 
                    }
   )
   
   # require( data.table) 
   output <-as.data.frame(rbindlist(output))
-  names( output )[ 1:(ncol(output)-2) ]<-names(ePP)
-  names( output )[ (ncol(output)-1):ncol(output) ] <- c( paste( "sm", 1:nsubcl , sep="") ,"sar") 
+  names( output )[ 1:ncol(epp) ]<-names(epp)
+  names( output )[ (ncol(epp)+1):ncol(output) ] <- c( paste( "sm", 1:nsubcl , sep="") ,"sar") 
   return(output)
   
 }
