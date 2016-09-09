@@ -16,6 +16,7 @@ coverParamSpace<- function(  selectedPeaks=NULL, segments=NULL, verbose=T , addT
     if( !is.null( selectedPeaks ) ){
       stop("coverParamSpace: only one of segments or selectedPeaks can be provided")
     }
+    # function defined in file eoDist.percent.R
     coverParamSpace.percent(  segments=segments, verbose=verbose , addToParamSpace=addToParamSpace, control=control, 
                               Sfrom=Sfrom, Sto=Sto, Sn=Sn, maxc=maxc, maxsubcldiff=maxsubcldiff , optimFct=optimFct , 
                               lowerF=lowerF, upperF=upperF ,  nrep=nrep , method=method, ...  )
