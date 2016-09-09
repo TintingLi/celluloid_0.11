@@ -115,18 +115,21 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   } 
   if( TRUE ){
     sel0 <- apply( epp[, 3:(ncol(epp)-2 )]==0 , 1, all )
-    if( ncol(epp)-2 > 4 ){
+    if( ncol(epp)-2 > 4 ){ # if there are subclones
       sel1 <- apply( epp[, seq(3,(ncol(epp)-2 ),2)]==1 , 1, all ) & 
         apply( epp[, seq(4,(ncol(epp)-2 ),2)]==0 , 1, all )
     } else {
       sel1<- epp[,3]==1 & epp[,4]==0 
     }
+    # the x distance between 0 copy and 1 copy
     xdist<- (epp[sel1,"x"]-epp[sel0,"x"])/(nsubcl*2)
   }
   
-  d<-as.matrix(dist(eoseg) )
+  d<-as.matrix(stats::dist(eoseg) )
+  # distances between segments and epp (only on the x-axis)
   d<-d[1:nseg,(nseg+1):(nepp+nseg)] 
   
+  # for each segment, take the min one
   mnd<-apply( d, 1, min )
   
   if( quadratic ){
@@ -134,9 +137,19 @@ eoDist.percent<-function( segments ,  S, t , quadratic=TRUE ,...  ){
   } else {
     mnd<-weight.linear( mnd, xdist=xdist)
   }
-  
+  if( nsubcl==1 ){ 
   glength<-sum( seg$size )
   percent<-sum( mnd * seg$size )/glength
+  } else {
+   # here I am trying to capture individual segments, instead of their sizes. 
+    # this is because large noisy segments around a peak can pull too much,
+    # as a result the second subclone will be in small frequency to capture the noise.
+    glength<-nrow(seg)
+    percent<-sum( mnd  )/glength
+    
+    
+  }
+    
   # so that the function can be minimized 
   return( 1 - percent )
   
