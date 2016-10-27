@@ -155,7 +155,9 @@ coverParamSpace.original <- function(  selectedPeaks, verbose=T , addToParamSpac
   
   for( currentrep in 1:nrep ){
     
-    if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1  ){
+    ##### paramSpace was being overwritten because of nrep=1 with grid search. fixed in v11.3 
+    ###### if( !exists( "paramSpace"  ) | !addToParamSpace  | nrep>1  ){
+    if( !exists( "paramSpace"  ) | !addToParamSpace  | ( nrep>1 & optimFct!=1 )  ){
       # global, holds parameters in each (or best so far?) iterations. Will be a data.frame
       paramSpace <<- c()
     }
