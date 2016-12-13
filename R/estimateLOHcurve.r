@@ -72,4 +72,39 @@ estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=1000
   }
 }
     
+
+# v11.3, manual mode only 
+estimateLOHcurve_manual <-function( copyAr , cntr=NULL  ){
+    
+    if( is.null(cntr)  ){ stop("estimateLOHcurve: missing cntr argument")}
+    plot( copyAr$mean, copyAr$ar, pch='.', xlim=c(0,2) ) 
+    image( cntr , col=terrain.colors(50), add=T  )
+    contour( cntr , nlev=50, add=T )
+
+    cat("Select segments on the LOH curve; right click to finish\n")
+    
+    selectedPoints<-c()
+    zz<-copyAr[,c("copy","ar")]
+    id<-identify( zz[,1],zz[,2] , n=1 , labels="" )
+    while( length( id )> 0 ){
+      points( zz[id,] , pch=19, col="black") 
+      selectedPoints<-rbind( selectedPoints,  data.frame( x=zz[id,1], y=zz[id,2] )  )
+      id<-identify(  zz[,1] ,zz[,2] , n=1, labels="" )
+    }
+    x<-selectedPoints[,1]
+    y<-selectedPoints[,2]
+    
+    nnllss<- nls( y ~ ARloh( x, 1 ,n ) , start=list(n=0.01  ) , upper=list( n=1 ), lower=list(n=0 ) , algorithm="port" )
+    Sn<-  summary(nnllss)$coefficients[1,1]
+    x <- seq(Sn, 2, .01 ) 
+    points( x , ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
+    points( x , 1- ARloh( x , 1 , Sn ) , type='l', col="black"  , lwd=3 )
+    
+    return(Sn)
+    
+  }
+}
+
+
+
     

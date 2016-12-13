@@ -6,3 +6,6 @@ v0.11.2
 Bug fix in gcCorrect when maskmap = T which rescaled reads.gc
 Added dot between maternal.paternal copy numbers in annotatreSegments.r
 #######################################################
+v0.11.3
+estimateLOHcurve_manual
+#######################################################
