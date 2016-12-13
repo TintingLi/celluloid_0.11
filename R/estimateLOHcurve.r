@@ -102,7 +102,6 @@ estimateLOHcurve_manual <-function( copyAr , cntr=NULL  ){
     
     return(Sn)
     
-  }
 }
 
 
