@@ -77,7 +77,7 @@ estimateLOHcurve<-function( segments , cntr=NULL, plot=F, manual=F, minsize=1000
 estimateLOHcurve_manual <-function( copyAr , cntr=NULL  ){
     
     if( is.null(cntr)  ){ stop("estimateLOHcurve: missing cntr argument")}
-    plot( copyAr$mean, copyAr$ar, pch='.', xlim=c(0,2) ) 
+    plot( copyAr$copy, copyAr$ar, pch='.', xlim=c(0,2) ) 
     image( cntr , col=terrain.colors(50), add=T  )
     contour( cntr , nlev=50, add=T )
 
