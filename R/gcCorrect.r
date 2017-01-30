@@ -18,7 +18,9 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
       
   # first pass
   cat( "gcCorrect: first pass\n")
-  tc<-gcCorrect( rangedata , maskmap=FALSE, sampletype="normal" )
+  # BUG FIX 170130 : THE ARGUMENTS WERE NOT PASSED 
+  tc<-gcCorrect( rangedata , maskmap=FALSE, sampletype="normal" , span =span , mappability = mappability, samplesize = samplesize , 
+                 bprange=bprange )
   
   t.seg <- segmentSeqData( tc , kmin=50 , maskmap=0, skipmeanmap=T )
   

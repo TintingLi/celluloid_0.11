@@ -9,3 +9,6 @@ Added dot between maternal.paternal copy numbers in annotatreSegments.r
 v0.11.3
 estimateLOHcurve_manual
 #######################################################
+NOT YET RELEASED
+170129
+Fixed bug in gcCorrect.tumor, the arguments were not passed to first call of gcCorrect within
