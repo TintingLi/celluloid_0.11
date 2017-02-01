@@ -12,7 +12,7 @@ plotModelPeaks(par = NULL, S = NULL, t = NULL, selectedPoints = NULL,
                cn, epcol = "red", epcex = 3, eplwd = 3, eppch = 21, 
                spcol = "black", sppch = 19, spcex = 1, splwd = 1, 
                addlabels = F, preserveMatPatDiff=T, 
-               preserveMaxSubClDiff=T , plot=TRUE , ...)
+               preserveMaxSubClDiff=T , plot=TRUE , xonly=FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -68,7 +68,8 @@ Flag to indicate if the sign of the difference between (say) the paternal and ma
 maxsubcldiff is a parameter of prepCN that indicates the upper bound for the difference in copy number between any two subclones (when >=1).  However, each parental chromosomes can have copy number differences greater than maxsubcldiff.   This flag is used to indicate that maxsubcldiff is to be applied to each parental chromosomes.
 }
 \item{plot}{ If FALSE, no points are plotted }
-
+\item{xonly}{If TRUE, ignore the allelic ratios, in which cases points are plotted at what would otherwise be an AR=0.5. preserveMatPatDiff
+and preserveMaxSubClDiff are ignored.}
   \item{\dots}{
 Additional parameters passed to addLabels.
 }
