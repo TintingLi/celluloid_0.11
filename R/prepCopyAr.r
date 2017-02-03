@@ -9,7 +9,7 @@
 # it has a column called "ignore" which takes T if the bin is 
 # to be ignored
 
-prepCopyAr <- function( seg, ar, tumourrangedata ){
+prepCopyAr <- function( seg, ar=NULL , tumourrangedata, xonly=FALSE ){
 
  #require( data.table) 
 
@@ -56,6 +56,20 @@ prepCopyAr <- function( seg, ar, tumourrangedata ){
  tumourrangedata$smcopy[ is.na(tumourrangedata$reads.gc) | tumourrangedata$ignore ] <- NA 
 
  cat(".")
+
+ # SINGLECELL BRANCH
+ if( is.null( ar ) ){
+   if( !xonly ){ stop("ar can't be NULL unless xonly=TRUE\n") }
+   # creating a fake ar, one het every 10kb 
+   cat("\n faking ar")
+   ar<-c()
+   for( i in 1:nrow( seg ) ) { 
+     cat(".")
+     pos<- seq( seg[i,4], seg[i,5], 50000 )
+     tmp<- data.frame( CHR= seg[i,2],  POS=pos,  REF_COUNT=50,  VAR_COUNT=50 )
+     ar<- rbind( ar, tmp ) 
+   }
+ }
 
  if( FALSE ) { print( head( tumourrangedata ) )  }
  chpo<- paste( tumourrangedata$space, start(tumourrangedata), sep="-")
