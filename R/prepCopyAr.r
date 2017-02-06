@@ -9,7 +9,7 @@
 # it has a column called "ignore" which takes T if the bin is 
 # to be ignored
 
-prepCopyAr <- function( seg, ar=NULL , tumourrangedata, xonly=FALSE ){
+prepCopyAr <- function( seg, ar=NULL , tumourrangedata, xonly=FALSE, fakeeverykb=50 ){
 
  #require( data.table) 
 
@@ -65,7 +65,7 @@ prepCopyAr <- function( seg, ar=NULL , tumourrangedata, xonly=FALSE ){
    ar<-c()
    for( i in 1:nrow( seg ) ) { 
      cat(".")
-     pos<- seq( seg[i,4], seg[i,5], 50000 )
+     pos<- seq( seg[i,4], seg[i,5], fakeeverykb*10000 )
      tmp<- data.frame( CHR= seg[i,2],  POS=pos,  REF_COUNT=50,  VAR_COUNT=50 )
      ar<- rbind( ar, tmp ) 
    }
