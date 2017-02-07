@@ -33,7 +33,7 @@ Flag to indicate if the sign of the difference between (say) the paternal and ma
 \item{preserveMaxSubClDiff}{
 maxsubcldiff is a parameter of prepCN that indicates the upper bound for the difference in copy number between any two subclones (when >=1).  However, each parental chromosomes can have copy number differences greater than maxsubcldiff.   This flag is used to indicate that maxsubcldiff is to be applied to each parental chromosomes.
 }
-\item{xonly}{ Ignore allelic ratios }
+\item{xonly}{Ignore allelic ratios, in which case the ar column is filled with dummy 0.5 values and the number of "paternal" copies arbitrarily set to 0.}
 }
 
 \author{

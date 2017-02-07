@@ -21,6 +21,10 @@ ePeakPos.xonly <- function( par=NULL, S=NULL, t=NULL, cn ){
   # this returns the number of 
   mp <-as.data.frame(rbindlist(mp))
   
+  # only selecting lines where p1 columns are 0
+  sel<-apply( data.frame( mp[, seq(4,ncol(mp),2)] )==0, 1, all )
+  mp<-mp[sel,] 
+  
   # this calculates the allelic ratio for each combinations
   # assuming that the "m" chromosomes carry the ref allele
   
