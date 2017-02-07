@@ -10,7 +10,7 @@ Given values of S and t parameters and a data frame of allowed copy-number confi
 }
 \usage{
 ePeakPos(par = NULL, S = NULL, t = NULL, cn, preserveMatPatDiff=T, 
-          preserveMaxSubClDiff=T )
+          preserveMaxSubClDiff=T , xonly=FALSE )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +33,7 @@ Flag to indicate if the sign of the difference between (say) the paternal and ma
 \item{preserveMaxSubClDiff}{
 maxsubcldiff is a parameter of prepCN that indicates the upper bound for the difference in copy number between any two subclones (when >=1).  However, each parental chromosomes can have copy number differences greater than maxsubcldiff.   This flag is used to indicate that maxsubcldiff is to be applied to each parental chromosomes.
 }
-
+\item{xonly}{ Ignore allelic ratios }
 }
 
 \author{
