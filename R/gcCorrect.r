@@ -78,7 +78,8 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
   cu<-cut( tc$gc, include.lowest=TRUE, breaks=quantile( tc$gc, seq(0,1,.1),na.rm=T ) )
   keep<-c()
   for( i in levels( cu ) ){
-    keep<-c( keep, sample( which( cu==i & !tc$ignore ), floor( samplesize/length(levels(cu)) ) ) )
+    wh<- which( cu==i & !tc$ignore ) 
+    keep<-c( keep, sample( wh, min( length( wh),floor( samplesize/length(levels(cu)) ) ) ) )
   }
   
   cat(" done.\nApplying loess correction...")
@@ -142,7 +143,8 @@ gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesiz
    cu<-cut( rangedata$gc, include.lowest=TRUE, breaks=quantile( rangedata$gc, seq(0,1,.1),na.rm=T ) )
    keep<-c()
    for( i in levels( cu ) ){
-     keep<-c( keep, sample( which( cu==i & !rangedata$ignore ), floor( samplesize/length(levels(cu)) ) ) )
+     wh<- which( cu==i & !rangedata$ignore )
+     keep<-c( keep, sample(wh , min( length( wh), floor( samplesize/length(levels(cu)) ) ) ) )
    }
    
    cat(" done.\nApplying loess correction...")
