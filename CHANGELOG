@@ -1,11 +1,21 @@
-#######################################################
+0        1         2         3         4         5         6         7         8
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+################################################################################
 v0.11.1
 Bug fix in segmentAR
-#######################################################
+################################################################################
 v0.11.2
 Bug fix in gcCorrect when maskmap = T which rescaled reads.gc
 Added dot between maternal.paternal copy numbers in annotatreSegments.r
-#######################################################
+################################################################################
 v0.11.3
 estimateLOHcurve_manual
-Fixed bug in gcCorrect.tumor, the arguments were not passed to first call of gcCorrect within
+Fixed bug in gcCorrect.tumor, the arguments were not passed to the first call of 
+ gcCorrect within
+################################################################################
+v0.11.4
+Fixed bug in gcCorrect when samplesize is greater than the length of the vector 
+ sampled from
+Implementation of xonly options, for low coverage tumors with no normals
+################################################################################
