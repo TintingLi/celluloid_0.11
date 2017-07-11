@@ -1,28 +1,28 @@
 # my own gc correction
 
 
-gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T, ... ){
+gcCorrect<-function( rangedata , sampletype="normal", span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
   if( sampletype=="tumor" | sampletype=="tumour" ){
     rangedata <- gcCorrect.tumor(  rangedata , span =span , mappability = mappability, samplesize = samplesize , 
-                                   bprange=bprange , maskmap=maskmap,... )
+                                   bprange=bprange , maskmap=maskmap )
   } else if( sampletype=="normal"){
     rangedata <- gcCorrect.normal(  rangedata , span =span , mappability = mappability, samplesize = samplesize , 
-                                    bprange=bprange , maskmap=maskmap, ... )
+                                    bprange=bprange , maskmap=maskmap )
   } else { stop( "gcCorrect: unknown sampletype (must take one of \"normal\" or \"tumor\" \n") }
   return( rangedata )
 }
 
 
-gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T, ... ){
+gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
       
   # first pass
   cat( "gcCorrect: first pass\n")
   # BUG FIX 170130 : THE ARGUMENTS WERE NOT PASSED 
   tc<-gcCorrect( rangedata , maskmap=FALSE, sampletype="normal" , span =span , mappability = mappability, samplesize = samplesize , 
-                 bprange=bprange ,...)
+                 bprange=bprange )
   
-  t.seg <- segmentSeqData( tc , kmin=50 , maskmap=0, skipmeanmap=T ,...)
+  t.seg <- segmentSeqData( tc , kmin=50 , maskmap=0, skipmeanmap=T )
   
   # will now add a tmp column to tc to include mean segment values 
   
@@ -114,7 +114,7 @@ gcCorrect.tumor<-function( rangedata , span =0.3 , mappability = 0.9, samplesize
 }
 
 
-gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ,... ){
+gcCorrect.normal<-function( rangedata , span =0.3 , mappability = 0.9, samplesize = 50000 , bprange=6 , maskmap=T ){
 
    reads <- rangedata$reads
 

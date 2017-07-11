@@ -1,6 +1,6 @@
 #source("meanMapInSeg.r") 
 
-segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=FALSE , skipmeanmap=FALSE , ... ){
+segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=FALSE , skipmeanmap=FALSE ){
 
  binlength<- end(rangedata[1,])-start(rangedata[1,])+1 
 
@@ -29,7 +29,7 @@ segmentSeqData<-function( rangedata, gamma=500, kmin=100, maskmap=.8 , maskadj=F
  tmp<-tmp[ order( tmp$chrom, tmp$pos ),] 
  
  tmp.win<-winsorize( tmp )
- tmp.seg <- pcf( data=tmp.win, gamma=gamma , kmin=kmin    , digits=4, ... )
+ tmp.seg <- pcf( data=tmp.win, gamma=gamma , kmin=kmin    , digits=4 )
  
  # start and end are based on "probe" positions;
  # I define a probe to be the start of a bin,  extending the end.pos to the end of the bins
