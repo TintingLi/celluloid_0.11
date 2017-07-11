@@ -1,13 +1,13 @@
 Package: celluloid
 Type: Package
 Title:  CELLULOID: tumour cellularity and ploidy tool
-Version: 0.11.3
-Date: 2017-01-30
+Version: 0.11.4
+Date: 2017-07-11
 Author: Mathieu Lemire
 Maintainer: Mathieu Lemire <mathieu.lemire@oicr.on.ca>
 Description: A pragmatic tool to evaluate ploidy, cellularity, clonal and sub-clonal 
 	     populations from tumour whole genome sequencing data, and to appropriately 
 	     derive absolute copy numbers profiles. 
 Depends: HMMcopy
-Imports: copynumber, GenSA, data.table, gplots, MASS,fields
+Imports: copynumber38, GenSA, data.table, gplots, MASS,fields
 License: file LICENSE

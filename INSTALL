@@ -1,5 +1,5 @@
 
-This is version 0.11.3 of celluloid. Check your version of celluloid with
+This is version 0.11.4/hg38 of celluloid. Check your version of celluloid with
 
  library(help=celluloid)
 
@@ -13,11 +13,15 @@ Install dependencies from Bioconductor first (from within R):
  biocLite("HMMcopy")
  biocLite("copynumber")
 
-then install celluloid 0.11.3 from github:
+Install copynumber38, a modified version of copynumber that allows alignment to hg38:
 
  install.packages("devtools")
  library(devtools)
- install_github("mathieu-lemire/celluloid_0.11", ref="v0.11.3" )
+ install_github("mathieu-lemire/copynumber38", ref="1.16.0" )
+
+then install celluloid 0.11.4/hg38 from github:
+
+ install_github("mathieu-lemire/celluloid_0.11", ref="hg38" )
 
 Alternatively you can download the source code located at
 
