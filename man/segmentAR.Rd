@@ -7,7 +7,7 @@ Function to segment allelic ratio data
 }
 \usage{
 segmentAR(ar, tumourrangedata = NULL, gamma = 500, kmin = 100, 
-          maskmap = 0.8)
+          maskmap = 0.8,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +26,7 @@ Minimum number of bins in each segment. See ?copynumber::pcf
  \item{maskmap}{
 Ignore SNPs falling in bins with mappability less than maskmap. Only used if tumourrangedata is provided.
 }
+\item{...}{Arguments to be passed to copynumber::pcf}
 }
 \details{
 ar must have the following columns:
