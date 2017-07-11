@@ -675,7 +675,7 @@ ePeakPos <- function( par=NULL, S=NULL, t=NULL, cn, preserveMatPatDiff=T , prese
 #################################################################################################
 
 # won't document this 
-getSegments<-function( copyAr , tc , gamma=500, kmin=100 ){
+getSegments<-function( copyAr , tc , gamma=500, kmin=100, ... ){
 
     stdchr <- c( paste( "chr",1:22, sep="") , "chrX", "chrY" )
 
@@ -690,7 +690,7 @@ getSegments<-function( copyAr , tc , gamma=500, kmin=100 ){
     tmp<-tmp[order( tmp$chrom),] 
  
     tmp.win<-winsorize( tmp )
-    iseg<- pcf( data=tmp.win, gamma=gamma , kmin=kmin   , digits=4 )
+    iseg<- pcf( data=tmp.win, gamma=gamma , kmin=kmin   , digits=4, ...  )
 
     iseg$chrom<-paste( "chr", iseg$chrom, sep="" )
     iseg$chrom[ iseg$chrom=="chr23" ]<- "chrX"
