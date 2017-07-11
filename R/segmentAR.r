@@ -2,7 +2,7 @@
 #   CHR   POS REF_COUNT VAR_COUNT
   
 # bin penalty by default; this segmenting is to identify segments that alternate between LOH and normal 
-segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=.8  ){
+segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=.8, ...  ){
 
   ar.tmp<-ar
 
@@ -36,7 +36,7 @@ segmentAR<-function( ar,  tumourrangedata=NULL, gamma = 500, kmin=100,  maskmap=
   
   #require(copynumber)
   tmp.win<-winsorize( tmp )
-  ar.seg<- pcf( data=tmp.win, gamma=5000 , kmin=100    , digits=4 )
+  ar.seg<- pcf( data=tmp.win, gamma=5000 , kmin=100    , digits=4 , ... )
   ar.seg$chrom<-paste("chr", ar.seg$chrom, sep="")   
 
   colnames(ar.seg)[7]<-"meanar"
